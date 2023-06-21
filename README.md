@@ -1,10 +1,16 @@
-# Projeto Aplicado XPE: MBA Machine Learning
+# Projeto Aplicado XPE: MBA em Machine Learning
 
 ## Objetivo:
 O projeto tem por objetivo gerar uma solução de Machine Learning capaz de ajudar plataformas e usuários a classificar conteúdos em vídeos em relação a presença ou não de “deepfakes”. De forma a acelerar o processo de sinalização e remoção de conteúdo potencialmente falso.
+
+<mark>[Adicionar detalhamento teórico]</mark>
+
 *** 
 ## Metodologia
 
+### - Design Thinking
+<mark>[Adicionar detalhamento]</mark>
+### - CRISP-DM
 O CRISP-DM (Cross Industry Standard Process for Data Mining ou processo padrão da indústria cruzada para mineração de dados) é um método ágil focado na resolução de problemas. 
 
 Atualmente é uma das metodologias mais utilizadas no desenvolvimento de projetos em ciência de dados. Sendo de grande utilidade em cenários de incerteza na hora de resolver problemas de negócio. Em outras palavras, uma etapa só é iniciada quando a anterior foi submetida a um processo de validação, o que implica em mudanças ao longo do tempo. 
@@ -21,6 +27,7 @@ Etapas do CRISP-DM:
 - **Modelagem**: Aplicação de técnicas de otimização, seleção de variavéis e modelagem.
 - **Avaliação**: Verificação das principais métricas visando entender se o modelo atinge os objetivos do negócio.
 - **Implantação**: Os resultados obtidos a partir do modelo são disponibilizads de uma forma que os clientes possam consumir.
+
 ***
 ## Padronização:
 Para padronizar a estrutura de arquivos do projeto, foi utilizado o <a href="https://www.cookiecutter.io/" target="_blank">Cookiecutter</a>. Trata-se de um repositório Open Source com templates de diferentes tipos. Cada template possui pastas e arquivos normalmente utilizados em seu respectivo tipo de projeto/tecnologia. 
@@ -32,6 +39,7 @@ Referências:
 
 Organização do projeto:
 
+<mark>[Detalhar alterações]</mark>
 
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
