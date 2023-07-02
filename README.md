@@ -3,13 +3,24 @@
 ## Objetivo:
 O projeto tem por objetivo gerar uma solução de Machine Learning capaz de ajudar plataformas e usuários a classificar conteúdos em vídeos em relação a presença ou não de “deepfakes”. De forma a acelerar o processo de sinalização e remoção de conteúdo potencialmente falso.
 
-<mark>[Adicionar detalhamento teórico]</mark>
+Para se atingir o nosso objetivo final, o desenvolvimento seguirá as seguintes etapas: 
+- Testar 3 diferentes modelos para detecção de deepfakes;
+- Utilizar uma combinação de 3 diferentes datasets para treino e teste;
+- Refinar modelos se aplicável (ajuste de hiperparametros, treino com mais dados, ajuste de camadas e etc…)
+- Criar Ensemble para combinar modelos e obter melhores resultados.
+- Gerar um benchmarking dos modelos;
+- O melhor modelo será implantado na nossa solução.
+
 
 *** 
-## Metodologia
+## Metodologias
 
 ### - Design Thinking
-<mark>[Adicionar detalhamento]</mark>
+O Design Thinking visa explorar estratégias criativas para identificaçãode problemas/desafios e proposição de soluções, sustentadas por hipóteses que são rapidamente testadas e validadas com os clientes reais. Combinado com a metodologia startup enxuta, do inglês lean startup, e as metodologias ágeis Permite sermos capazes de testar rapidamente os problemas, soluções,
+segmentos de clientes, entre outros pontos essenciais para validar e operacionalizar qualquer ideia.
+
+Essa metodologia será utilizada para a concepção do produto e sua aplicação estará registrada no relatório final do projeto aplicado.
+
 ### - CRISP-DM
 O CRISP-DM (Cross Industry Standard Process for Data Mining ou processo padrão da indústria cruzada para mineração de dados) é um método ágil focado na resolução de problemas. 
 
@@ -19,9 +30,9 @@ Portanto, o CRISP DM é uma metodologia flexível, capaz de lidar com problemas 
 
 ![image](./references/images/crisp-dm_diagram.png)
 
-Etapas do CRISP-DM:
+Etapas do CRISP-DM no projeto aplicado:
 
-- **Entender o Negócio**: Foca na compreensão do objetivo do projeto a partir de uma perspectiva de negócios, definindo um plano preliminar e uma estrutura de trabalho.
+- **Entender o Negócio**: Foca na compreensão do objetivo do projeto a partir de uma perspectiva de negócios, definindo um plano preliminar e uma estrutura de desenvolvimento.
 - **Entender os Dados**: Coleta de dados e inicio de atividades para familiarização com os dados, identificando problemas ou conjuntos interessantes.
 - **Preparação dos Dados**: Construção do conjunto de dados final a partir dos dados iniciais. 
 - **Modelagem**: Aplicação de técnicas de otimização, seleção de variavéis e modelagem.
@@ -39,7 +50,7 @@ Referências:
 
 Organização do projeto:
 
-<mark>[Detalhar alterações]</mark>
+<mark>[Detalhar alterações durante o desenvolvimento]</mark>
 
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
