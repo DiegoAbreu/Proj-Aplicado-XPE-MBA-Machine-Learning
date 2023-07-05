@@ -1,0 +1,15 @@
+artifact_uri: file:///Volumes/1TB/GitHub/notebooks/mlruns/846895185301993649/bb6f177b394a40c6bdefd9ea013abadb/artifacts
+end_time: 1688323927456
+entry_point_name: ''
+experiment_id: '846895185301993649'
+lifecycle_stage: active
+run_id: bb6f177b394a40c6bdefd9ea013abadb
+run_name: Xgboost
+run_uuid: bb6f177b394a40c6bdefd9ea013abadb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1688323924790
+status: 3
+tags: []
+user_id: diegoabreu

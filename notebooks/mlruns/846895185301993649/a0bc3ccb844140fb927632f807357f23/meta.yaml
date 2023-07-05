@@ -1,0 +1,15 @@
+artifact_uri: file:///Volumes/1TB/GitHub/notebooks/mlruns/846895185301993649/a0bc3ccb844140fb927632f807357f23/artifacts
+end_time: 1688323912086
+entry_point_name: ''
+experiment_id: '846895185301993649'
+lifecycle_stage: active
+run_id: a0bc3ccb844140fb927632f807357f23
+run_name: Regressao Linear
+run_uuid: a0bc3ccb844140fb927632f807357f23
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1688323909338
+status: 3
+tags: []
+user_id: diegoabreu

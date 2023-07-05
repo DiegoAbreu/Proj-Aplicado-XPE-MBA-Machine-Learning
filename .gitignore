@@ -1,3 +1,4 @@
 # Ignore os arquivos e diretórios:
 venv/
 *csv
+*.mp4

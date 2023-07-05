@@ -1,0 +1,16 @@
+artifact_uri: file:///Volumes/ATLAS_4TB/Github/Proj-Aplicado-XPE-MBA-Machine-Learning/notebooks/mlruns/484177537176733553/78618c6b70764a13a3b805c3374239d0/artifacts
+deleted_time: 1688323872926
+end_time: 1688323842066
+entry_point_name: ''
+experiment_id: '484177537176733553'
+lifecycle_stage: deleted
+run_id: 78618c6b70764a13a3b805c3374239d0
+run_name: Xgboost
+run_uuid: 78618c6b70764a13a3b805c3374239d0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1688323839033
+status: 3
+tags: []
+user_id: diegoabreu

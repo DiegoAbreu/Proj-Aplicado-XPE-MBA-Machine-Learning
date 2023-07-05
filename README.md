@@ -55,11 +55,40 @@ Organização do projeto:
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
+    ├── data                            <- Diretório de dados.
+    │   ├── external                    <- Diretório de dados externos(temporário).
+    │   │   └── input_video             <- Diretório para armazenar o vídeo recebido via 
+    │   │                                  upload para classificação.
+    │   │   
+    │   ├── interim                     <- Diretório de dados em processamento (temporário).
+    │   │   └── input_face              <- Diretório para armazenar os frames processados 
+    │   │                                  do vídeo recebido via upload para classificação.
+    │   │
+    │   ├── processed                   <- Diretório de dados processados.
+    │   │   ├── dataset_celebdf         <- Diretório de faces do dataset celebdf
+    │   │   │   └── real_face           <- Diretório de faces reais
+    │   │   │   └── fake_face           <- Diretório de faces falsas
+    │   │   │
+    │   │   ├── dataset_faceforensics   <- Diretório de faces do dataset faceforensics
+    │   │   │   └── real_face           <- Diretório de faces reais
+    │   │   │   └── fake_face           <- Diretório de faces falsas
+    │   │   │
+    │   │   └── dataset_dfdc            <- Diretório de faces do dataset dfdc
+    │   │       └── real_face           <- Diretório de faces reais
+    │   │       └── fake_face           <- Diretório de faces falsas
+    │   │   
+    │   └── raw                         <- Diretório de dados brutos.
+    │       ├── dataset_celebdf         <- Diretório de vídeos do dataset celebdf
+    │       │   └── real_video          <- Diretório de vídeos reais
+    │       │   └── fake_video          <- Diretório de vídeos falsos
+    │       │
+    │       ├── dataset_faceforensics   <- Diretório de vídeos do dataset faceforensics
+    │       │   └── real_video          <- Diretório de vídeos reais
+    │       │   └── fake_video          <- Diretório de vídeos falsos
+    │       │
+    │       └── dataset_dfdc            <- Diretório de vídeos do dataset dfdc
+    │           └── real_video          <- Diretório de vídeos reais
+    │           └── fake_video          <- Diretório de vídeos falsos
     │
     ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
     │

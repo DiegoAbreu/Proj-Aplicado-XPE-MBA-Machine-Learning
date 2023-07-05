@@ -1,0 +1,16 @@
+artifact_uri: file:///Volumes/ATLAS_4TB/Github/Proj-Aplicado-XPE-MBA-Machine-Learning/notebooks/mlruns/484177537176733553/1ddff43f893e41bdb8a0517d766e050c/artifacts
+deleted_time: 1688323872926
+end_time: 1688240206172
+entry_point_name: ''
+experiment_id: '484177537176733553'
+lifecycle_stage: deleted
+run_id: 1ddff43f893e41bdb8a0517d766e050c
+run_name: flawless-cub-372
+run_uuid: 1ddff43f893e41bdb8a0517d766e050c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1688240202483
+status: 3
+tags: []
+user_id: diegoabreu

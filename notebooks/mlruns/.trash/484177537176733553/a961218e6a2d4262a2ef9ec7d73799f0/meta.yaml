@@ -1,0 +1,16 @@
+artifact_uri: file:///Volumes/ATLAS_4TB/Github/Proj-Aplicado-XPE-MBA-Machine-Learning/notebooks/mlruns/484177537176733553/a961218e6a2d4262a2ef9ec7d73799f0/artifacts
+deleted_time: 1688323872926
+end_time: 1688240431642
+entry_point_name: ''
+experiment_id: '484177537176733553'
+lifecycle_stage: deleted
+run_id: a961218e6a2d4262a2ef9ec7d73799f0
+run_name: Regressao Linear
+run_uuid: a961218e6a2d4262a2ef9ec7d73799f0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1688240428826
+status: 3
+tags: []
+user_id: diegoabreu
