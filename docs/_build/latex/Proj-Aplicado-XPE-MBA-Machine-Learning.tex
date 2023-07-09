@@ -64,7 +64,7 @@
 
 
 \title{Proj-Aplicado-XPE-MBA-Machine-Learning Documentation}
-\date{Jul 01, 2023}
+\date{Jul 08, 2023}
 \release{0.1}
 \author{Diego Abreu}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -94,6 +94,14 @@
 \section{Importacao de dados}
 \label{\detokenize{notebooks/teste:importacao-de-dados}}
 \begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
+\PYG{n}{df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../data/external/casas.csv}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{df}\PYG{o}{.}\PYG{n}{head}\PYG{p}{(}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
 \begin{sphinxuseclass}{cell_output}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
    tamanho   ano  garagem   preco
@@ -107,34 +115,1887 @@
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{drop}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{preco}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{preco}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{copy}\PYG{p}{(}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{model\PYGZus{}selection} \PYG{k+kn}{import} \PYG{n}{train\PYGZus{}test\PYGZus{}split}
+\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}test} \PYG{o}{=} \PYG{n}{train\PYGZus{}test\PYGZus{}split}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{test\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mf}{0.3}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{mlflow}
+\PYG{n}{mlflow}\PYG{o}{.}\PYG{n}{set\PYGZus{}experiment}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{teste\PYGZhy{}mlflow}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{linear\PYGZus{}model} \PYG{k+kn}{import} \PYG{n}{LinearRegression}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{metrics} \PYG{k+kn}{import} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{,} \PYG{n}{r2\PYGZus{}score}
+\PYG{k+kn}{import} \PYG{n+nn}{math}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
 \end{sphinxuseclass}
 
 \section{Modelo 1}
 \label{\detokenize{notebooks/teste:modelo-1}}
 \begin{sphinxuseclass}{cell}
-\end{sphinxuseclass}
-\begin{sphinxuseclass}{cell}
-\begin{sphinxuseclass}{cell_output}
+\begin{sphinxuseclass}{cell_input}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-2023/07/01 16:32:33 INFO mlflow.tracking.fluent: Experiment with name \PYGZsq{}teste\PYGZhy{}mlflow\PYGZsq{} does not exist. Creating a new experiment.
+\PYG{k}{with} \PYG{n}{mlflow}\PYG{o}{.}\PYG{n}{start\PYGZus{}run}\PYG{p}{(}\PYG{n}{run\PYGZus{}name}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Regressao Linear}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{lr} \PYG{o}{=} \PYG{n}{LinearRegression}\PYG{p}{(}\PYG{p}{)}
+    \PYG{n}{lr}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{)}
+    \PYG{n}{mlflow}\PYG{o}{.}\PYG{n}{sklearn}\PYG{o}{.}\PYG{n}{log\PYGZus{}model}\PYG{p}{(}\PYG{n}{lr}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{lr}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{lr\PYGZus{}predicted} \PYG{o}{=} \PYG{n}{lr}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{)}
+    \PYG{n}{mse} \PYG{o}{=} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{lr\PYGZus{}predicted}\PYG{p}{)}
+    \PYG{n}{rmse} \PYG{o}{=}  \PYG{n}{math}\PYG{o}{.}\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{mse}\PYG{p}{)}
+    \PYG{n}{r2} \PYG{o}{=} \PYG{n}{r2\PYGZus{}score}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{lr\PYGZus{}predicted}\PYG{p}{)}
+    \PYG{n}{mlflow}\PYG{o}{.}\PYG{n}{log\PYGZus{}metric}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{mse}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{mse}\PYG{p}{)}
+    \PYG{n}{mlflow}\PYG{o}{.}\PYG{n}{log\PYGZus{}metric}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{rmse}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{rmse}\PYG{p}{)}
+    \PYG{n}{mlflow}\PYG{o}{.}\PYG{n}{log\PYGZus{}metric}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{r2}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{r2}\PYG{p}{)}
 \end{sphinxVerbatim}
 
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYGZlt{}Experiment: artifact\PYGZus{}location=\PYGZsq{}file:///Volumes/ATLAS\PYGZus{}4TB/Github/Proj\PYGZhy{}Aplicado\PYGZhy{}XPE\PYGZhy{}MBA\PYGZhy{}Machine\PYGZhy{}Learning/notebooks/mlruns/484177537176733553\PYGZsq{}, creation\PYGZus{}time=1688239953323, experiment\PYGZus{}id=\PYGZsq{}484177537176733553\PYGZsq{}, last\PYGZus{}update\PYGZus{}time=1688239953323, lifecycle\PYGZus{}stage=\PYGZsq{}active\PYGZsq{}, name=\PYGZsq{}teste\PYGZhy{}mlflow\PYGZsq{}, tags=\PYGZob{}\PYGZcb{}\PYGZgt{}
-\end{sphinxVerbatim}
-
 \end{sphinxuseclass}
-\end{sphinxuseclass}
-\begin{sphinxuseclass}{cell}
 \end{sphinxuseclass}
 
 \section{Modelo 2}
 \label{\detokenize{notebooks/teste:modelo-2}}
 \begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{xgboost} \PYG{k+kn}{import} \PYG{n}{XGBRegressor}
+\PYG{n}{xgb\PYGZus{}params} \PYG{o}{=} \PYG{p}{\PYGZob{}}
+    \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{learning\PYGZus{}rate}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}\PYG{l+m+mf}{0.2}\PYG{p}{,}
+    \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{n\PYGZus{}estimators}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{l+m+mi}{50}\PYG{p}{,}
+    \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{random\PYGZus{}state}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}\PYG{l+m+mi}{42}
+\PYG{p}{\PYGZcb{}}
+\PYG{k}{with} \PYG{n}{mlflow}\PYG{o}{.}\PYG{n}{start\PYGZus{}run}\PYG{p}{(}\PYG{n}{run\PYGZus{}name}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Xgboost}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{xgb} \PYG{o}{=} \PYG{n}{XGBRegressor}\PYG{p}{(}\PYG{o}{*}\PYG{o}{*}\PYG{n}{xgb\PYGZus{}params}\PYG{p}{)}
+    \PYG{n}{xgb}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{)}
+    \PYG{n}{mlflow}\PYG{o}{.}\PYG{n}{xgboost}\PYG{o}{.}\PYG{n}{log\PYGZus{}model}\PYG{p}{(}\PYG{n}{xgb}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{xgboost}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{xgb\PYGZus{}predicted} \PYG{o}{=} \PYG{n}{xgb}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{)}
+    \PYG{n}{mse} \PYG{o}{=} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{xgb\PYGZus{}predicted}\PYG{p}{)}
+    \PYG{n}{rmse} \PYG{o}{=}  \PYG{n}{math}\PYG{o}{.}\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{mse}\PYG{p}{)}
+    \PYG{n}{r2} \PYG{o}{=} \PYG{n}{r2\PYGZus{}score}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{xgb\PYGZus{}predicted}\PYG{p}{)}
+    \PYG{n}{mlflow}\PYG{o}{.}\PYG{n}{log\PYGZus{}metric}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{mse}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{mse}\PYG{p}{)}
+    \PYG{n}{mlflow}\PYG{o}{.}\PYG{n}{log\PYGZus{}metric}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{rmse}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{rmse}\PYG{p}{)}
+    \PYG{n}{mlflow}\PYG{o}{.}\PYG{n}{log\PYGZus{}metric}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{r2}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{r2}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
 \begin{sphinxuseclass}{cell_output}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 /Users/diegoabreu/opt/anaconda3/lib/python3.8/site\PYGZhy{}packages/xgboost/data.py:262: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
   elif isinstance(data.columns, (pd.Int64Index, pd.RangeIndex)):
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{glob} \PYG{k+kn}{import} \PYG{n}{glob}
+\PYG{k+kn}{import} \PYG{n+nn}{os}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/*mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell_output}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYGZsq{}../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/000\PYGZus{}003.mp4\PYGZsq{}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/df\PYGZus{}}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{.mp4}\PYG{l+s+s2}{\PYGZdq{}}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell_output}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYGZsq{}../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/df\PYGZus{}000\PYGZus{}003.mp4\PYGZsq{}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/*mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{os}\PYG{o}{.}\PYG{n}{rename}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/df\PYGZus{}}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n}{i}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/Face2Face/c23/videos/*mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{os}\PYG{o}{.}\PYG{n}{rename}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/Face2Face/c23/videos/f2f\PYGZus{}}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n}{i}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/Face2Face/c23/videos/}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/FaceSwap/c23/videos/*mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{os}\PYG{o}{.}\PYG{n}{rename}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/FaceSwap/c23/videos/fs\PYGZus{}}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n}{i}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/FaceSwap/c23/videos/}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/NeuralTextures/c23/videos/*mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{os}\PYG{o}{.}\PYG{n}{rename}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/NeuralTextures/c23/videos/nt\PYGZus{}}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n}{i}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/NeuralTextures/c23/videos/}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{json\PYGZus{}files}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell_output}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYGZsq{}../data/raw/dataset\PYGZus{}dfdc/a\PYGZus{}identificar/dfdc\PYGZus{}train\PYGZus{}part\PYGZus{}0/metadata.json\PYGZsq{}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{pastas} \PYG{o}{=} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}dfdc/a\PYGZus{}identificar/*}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{json\PYGZus{}files}\PYG{o}{=}\PYG{p}{[}\PYG{p}{]}
+\PYG{k}{for} \PYG{n}{pasta} \PYG{o+ow}{in} \PYG{n}{pastas}\PYG{p}{:}
+    \PYG{k}{try}\PYG{p}{:}
+        \PYG{n}{json\PYGZus{}files}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{glob}\PYG{p}{(}\PYG{n}{i}\PYG{o}{+}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{/*json}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}
+    \PYG{k}{except}\PYG{p}{:} 
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{erro: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{i}\PYG{p}{)}
+\PYG{n}{json\PYGZus{}files}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{json}
+\PYG{n}{json\PYGZus{}meta} \PYG{o}{=} \PYG{n}{json}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{json\PYGZus{}files}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}json\PYGZus{}meta}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{json}
+\PYG{k+kn}{from} \PYG{n+nn}{glob} \PYG{k+kn}{import} \PYG{n}{glob}
+\PYG{k+kn}{import} \PYG{n+nn}{os}
+\PYG{k+kn}{import} \PYG{n+nn}{shutil}
+\PYG{n}{pastas} \PYG{o}{=} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}dfdc/a\PYGZus{}identificar/*}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{json\PYGZus{}files}\PYG{o}{=}\PYG{p}{[}\PYG{p}{]}
+\PYG{k}{for} \PYG{n}{pasta} \PYG{o+ow}{in} \PYG{n}{pastas}\PYG{p}{:}
+    \PYG{c+c1}{\PYGZsh{}print(glob(pasta+\PYGZdq{}/*json\PYGZdq{})[0])}
+    \PYG{n}{json\PYGZus{}meta\PYGZus{}file} \PYG{o}{=} \PYG{n}{glob}\PYG{p}{(}\PYG{n}{pasta}\PYG{o}{+}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{/*json}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+    \PYG{n}{json\PYGZus{}meta} \PYG{o}{=} \PYG{n}{json}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{json\PYGZus{}meta\PYGZus{}file}\PYG{p}{)}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}print(json\PYGZus{}meta)}
+    \PYG{n}{videos} \PYG{o}{=} \PYG{n}{glob}\PYG{p}{(}\PYG{n}{pasta}\PYG{o}{+}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{/*mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+    \PYG{k}{for} \PYG{n}{video} \PYG{o+ow}{in} \PYG{n}{videos}\PYG{p}{:}
+        \PYG{n}{z} \PYG{o}{=} \PYG{n}{video}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(} \PYG{n}{pasta}\PYG{o}{+}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{/}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n}{json\PYGZus{}meta}\PYG{p}{[}\PYG{n}{z}\PYG{p}{]}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{label}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{==} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{FAKE}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+            \PYG{n}{shutil}\PYG{o}{.}\PYG{n}{move}\PYG{p}{(}\PYG{n}{video}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}dfdc/fake\PYGZus{}video/}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{shutil}\PYG{o}{.}\PYG{n}{move}\PYG{p}{(}\PYG{n}{video}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}dfdc/real\PYGZus{}video/}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}dfdc/real\PYGZus{}video/*}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell_output}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+19154
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{glob}\PYG{p}{(}\PYG{n}{pastas}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{+}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{/*mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{z} \PYG{o}{=} \PYG{n}{i}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}dfdc/a\PYGZus{}identificar/dfdc\PYGZus{}train\PYGZus{}part\PYGZus{}0/}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{json\PYGZus{}meta}\PYG{p}{[}\PYG{n}{z}\PYG{p}{]}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{label}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{==} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{FAKE}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{fake}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{real}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell_output}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+real
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+real
+fake
+real
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+real
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+real
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+real
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{json\PYGZus{}meta}\PYG{p}{[}\PYG{n}{z}\PYG{p}{]}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{label}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell_output}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYGZsq{}FAKE\PYGZsq{}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\sphinxstepscope
+
+
+\chapter{Análise Exploratória}
+\label{\detokenize{notebooks/0_EDA:analise-exploratoria}}\label{\detokenize{notebooks/0_EDA::doc}}
+
+\section{Datasets:}
+\label{\detokenize{notebooks/0_EDA:datasets}}
+\sphinxAtStartPar
+Os datasets serão armazenados no diretório data conforme a estrutura a seguir:
+
+\sphinxAtStartPar
+…
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+├── data                            \PYGZlt{}\PYGZhy{} Diretório de dados.
+│   ├── external                    \PYGZlt{}\PYGZhy{} Diretório de dados externos(temporário).
+│   │   └── input\PYGZus{}video             \PYGZlt{}\PYGZhy{} Diretório para armazenar o vídeo recebido via 
+│   │                                  upload para classificação.
+│   │   
+│   ├── interim                     \PYGZlt{}\PYGZhy{} Diretório de dados em processamento (temporário).
+│   │   └── input\PYGZus{}face              \PYGZlt{}\PYGZhy{} Diretório para armazenar os frames processados 
+│   │                                  do vídeo recebido via upload para classificação.
+│   │
+│   ├── processed                   \PYGZlt{}\PYGZhy{} Diretório de dados processados.
+│   │   ├── dataset\PYGZus{}celebdf         \PYGZlt{}\PYGZhy{} Diretório de faces do dataset celebdf
+│   │   │   └── real\PYGZus{}face           \PYGZlt{}\PYGZhy{} Diretório de faces reais
+│   │   │   └── fake\PYGZus{}face           \PYGZlt{}\PYGZhy{} Diretório de faces falsas
+│   │   │
+│   │   ├── dataset\PYGZus{}faceforensics   \PYGZlt{}\PYGZhy{} Diretório de faces do dataset faceforensics
+│   │   │   └── real\PYGZus{}face           \PYGZlt{}\PYGZhy{} Diretório de faces reais
+│   │   │   └── fake\PYGZus{}face           \PYGZlt{}\PYGZhy{} Diretório de faces falsas
+│   │   │
+│   │   └── dataset\PYGZus{}dfdc            \PYGZlt{}\PYGZhy{} Diretório de faces do dataset dfdc
+│   │       └── real\PYGZus{}face           \PYGZlt{}\PYGZhy{} Diretório de faces reais
+│   │       └── fake\PYGZus{}face           \PYGZlt{}\PYGZhy{} Diretório de faces falsas
+│   │   
+│   └── raw                         \PYGZlt{}\PYGZhy{} Diretório de dados brutos.
+│       ├── dataset\PYGZus{}celebdf         \PYGZlt{}\PYGZhy{} Diretório de vídeos do dataset celebdf
+│       │   └── real\PYGZus{}video          \PYGZlt{}\PYGZhy{} Diretório de vídeos reais
+│       │   └── fake\PYGZus{}video          \PYGZlt{}\PYGZhy{} Diretório de vídeos falsos
+│       │
+│       ├── dataset\PYGZus{}faceforensics   \PYGZlt{}\PYGZhy{} Diretório de vídeos do dataset faceforensics
+│       │   └── real\PYGZus{}video          \PYGZlt{}\PYGZhy{} Diretório de vídeos reais
+│       │   └── fake\PYGZus{}video          \PYGZlt{}\PYGZhy{} Diretório de vídeos falsos
+│       │
+│       └── dataset\PYGZus{}dfdc            \PYGZlt{}\PYGZhy{} Diretório de vídeos do dataset dfdc
+│           └── real\PYGZus{}video          \PYGZlt{}\PYGZhy{} Diretório de vídeos reais
+│           └── fake\PYGZus{}video          \PYGZlt{}\PYGZhy{} Diretório de vídeos falsos
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+…
+
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Importação de Bibliotecas:}
+\PYG{k+kn}{from} \PYG{n+nn}{glob} \PYG{k+kn}{import} \PYG{n}{glob}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{videos\PYGZus{}reais} \PYG{o}{=} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}celebdf/real\PYGZus{}video/*.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{IPython}\PYG{n+nn}{.}\PYG{n+nn}{display} \PYG{k+kn}{import} \PYG{n}{HTML}
+\PYG{k+kn}{from} \PYG{n+nn}{base64} \PYG{k+kn}{import} \PYG{n}{b64encode}
+\PYG{k+kn}{import} \PYG{n+nn}{os}
+
+\PYG{n}{tipo} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{real\PYGZus{}video}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{pasta} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Proj\PYGZhy{}Aplicado\PYGZhy{}XPE\PYGZhy{}MBA\PYGZhy{}Machine\PYGZhy{}Learning/data/raw/dataset\PYGZus{}celebdf}\PYG{l+s+s1}{\PYGZsq{}}
+
+\PYG{k}{def} \PYG{n+nf}{play\PYGZus{}video}\PYG{p}{(}\PYG{n}{video\PYGZus{}file}\PYG{p}{,} \PYG{n}{subset}\PYG{o}{=}\PYG{n}{tipo}\PYG{p}{)}\PYG{p}{:}
+\PYG{+w}{    }\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{    Display video}
+\PYG{l+s+sd}{    param: video\PYGZus{}file \PYGZhy{} the name of the video file to display}
+\PYG{l+s+sd}{    param: subset \PYGZhy{} the folder where the video file is located (can be TRAIN\PYGZus{}SAMPLE\PYGZus{}FOLDER or TEST\PYGZus{}Folder)}
+\PYG{l+s+sd}{    \PYGZsq{}\PYGZsq{}\PYGZsq{}}
+    \PYG{n}{video\PYGZus{}url} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{pasta}\PYG{p}{,} \PYG{n}{subset}\PYG{p}{,}\PYG{n}{video\PYGZus{}file}\PYG{p}{)}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{rb}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{read}\PYG{p}{(}\PYG{p}{)}
+    \PYG{n}{data\PYGZus{}url} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{data:video/mp4;base64,}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n}{b64encode}\PYG{p}{(}\PYG{n}{video\PYGZus{}url}\PYG{p}{)}\PYG{o}{.}\PYG{n}{decode}\PYG{p}{(}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{HTML}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}\PYG{l+s+s2}{\PYGZlt{}video width=500 controls\PYGZgt{}\PYGZlt{}source src=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ type=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{video/mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZgt{}\PYGZlt{}/video\PYGZgt{}}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}} \PYG{o}{\PYGZpc{}} \PYG{n}{data\PYGZus{}url}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{play\PYGZus{}video}\PYG{p}{(}\PYG{n}{fake\PYGZus{}videos}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+
+\subsection{CELEB\sphinxhyphen{}DF:}
+\label{\detokenize{notebooks/0_EDA:celeb-df}}
+\sphinxAtStartPar
+Link:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+Celeb\sphinxhyphen{}DF: https://www.kaggle.com/datasets/reubensuju/celeb\sphinxhyphen{}df\sphinxhyphen{}v2
+
+\end{itemize}
+
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Lista de vídeos:}
+\PYG{n}{videos\PYGZus{}reais} \PYG{o}{=} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}celebdf/real\PYGZus{}video/*.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{videos\PYGZus{}fakes}\PYG{o}{=} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}celebdf/fake\PYGZus{}video/*.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Totais:}
+\PYG{n}{total\PYGZus{}reais} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{videos\PYGZus{}reais}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Total de vídeos reais: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{total\PYGZus{}reais}\PYG{p}{)}
+\PYG{n}{total\PYGZus{}fakes} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{videos\PYGZus{}fakes}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Total de vídeos falsos: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{total\PYGZus{}fakes}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Total de vídeos: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{total\PYGZus{}reais} \PYG{o}{+} \PYG{n}{total\PYGZus{}fakes}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell_output}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+Total de vídeos reais:  890
+Total de vídeos falsos:  5639
+Total de vídeos:  6529
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Amostra reais:}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{videos\PYGZus{}reais}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell_output}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYGZsq{}../data/raw/dataset\PYGZus{}celebdf/real\PYGZus{}video/00001.mp4\PYGZsq{}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{IPython}\PYG{n+nn}{.}\PYG{n+nn}{display} \PYG{k+kn}{import} \PYG{n}{HTML}
+\PYG{k+kn}{from} \PYG{n+nn}{base64} \PYG{k+kn}{import} \PYG{n}{b64encode}
+\PYG{k+kn}{import} \PYG{n+nn}{os}
+
+\PYG{n}{video\PYGZus{}url} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{../data/raw/dataset\PYGZus{}dfdc/id0\PYGZus{}id1\PYGZus{}0000\PYGZhy{}hevcmp4.mp4}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{rb}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{read}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{data\PYGZus{}url} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{data:video/mp4;base64,}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n}{b64encode}\PYG{p}{(}\PYG{n}{video\PYGZus{}url}\PYG{p}{)}\PYG{o}{.}\PYG{n}{decode}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{HTML}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}\PYG{l+s+s2}{\PYGZlt{}video width=500 controls\PYGZgt{}\PYGZlt{}source src=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ type=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{video/mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZgt{}\PYGZlt{}/video\PYGZgt{}}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}} \PYG{o}{\PYGZpc{}} \PYG{n}{data\PYGZus{}url}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell_output}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYGZlt{}IPython.core.display.HTML object\PYGZgt{}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{IPython}\PYG{n+nn}{.}\PYG{n+nn}{display} \PYG{k+kn}{import} \PYG{n}{HTML}
+\PYG{k+kn}{from} \PYG{n+nn}{base64} \PYG{k+kn}{import} \PYG{n}{b64encode}
+\PYG{k+kn}{import} \PYG{n+nn}{os}
+
+\PYG{n}{tipo} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{real\PYGZus{}video}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{pasta} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Proj\PYGZhy{}Aplicado\PYGZhy{}XPE\PYGZhy{}MBA\PYGZhy{}Machine\PYGZhy{}Learning/data/raw/dataset\PYGZus{}celebdf}\PYG{l+s+s1}{\PYGZsq{}}
+
+\PYG{k}{def} \PYG{n+nf}{play\PYGZus{}video}\PYG{p}{(}\PYG{n}{video\PYGZus{}file}\PYG{p}{,} \PYG{n}{subset}\PYG{o}{=}\PYG{n}{tipo}\PYG{p}{)}\PYG{p}{:}
+\PYG{+w}{    }\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{    Display video}
+\PYG{l+s+sd}{    param: video\PYGZus{}file \PYGZhy{} the name of the video file to display}
+\PYG{l+s+sd}{    param: subset \PYGZhy{} the folder where the video file is located (can be TRAIN\PYGZus{}SAMPLE\PYGZus{}FOLDER or TEST\PYGZus{}Folder)}
+\PYG{l+s+sd}{    \PYGZsq{}\PYGZsq{}\PYGZsq{}}
+    \PYG{n}{video\PYGZus{}url} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{pasta}\PYG{p}{,} \PYG{n}{subset}\PYG{p}{,}\PYG{n}{video\PYGZus{}file}\PYG{p}{)}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{rb}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{read}\PYG{p}{(}\PYG{p}{)}
+    \PYG{n}{data\PYGZus{}url} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{data:video/mp4;base64,}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{n}{b64encode}\PYG{p}{(}\PYG{n}{video\PYGZus{}url}\PYG{p}{)}\PYG{o}{.}\PYG{n}{decode}\PYG{p}{(}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{HTML}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}\PYG{l+s+s2}{\PYGZlt{}video width=500 controls\PYGZgt{}\PYGZlt{}source src=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{ type=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{video/mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZgt{}\PYGZlt{}/video\PYGZgt{}}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}} \PYG{o}{\PYGZpc{}} \PYG{n}{data\PYGZus{}url}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Amostra falsos:}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+
+\bigskip\hrule\bigskip
+
+
+
+\subsection{FaceForensics++:}
+\label{\detokenize{notebooks/0_EDA:faceforensics}}
+\sphinxAtStartPar
+Link:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+FaceForensics: https://www.kaggle.com/datasets/sorokin/faceforensics
+
+\end{itemize}
+
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{total\PYGZus{}real} \PYG{o}{=} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/real\PYGZus{}video/*.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Total de vídeos reais: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{total\PYGZus{}real}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{total\PYGZus{}fake} \PYG{o}{=} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}faceforensics/fake\PYGZus{}video/*.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Total de vídeos falsos: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{total\PYGZus{}fake}\PYG{p}{)}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Total de vídeos: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{total\PYGZus{}real}\PYG{p}{)}\PYG{o}{+}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{total\PYGZus{}fake}\PYG{p}{)}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell_output}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+Total de vídeos reais:  1000
+Total de vídeos falsos:  4000
+Total de vídeos:  5000
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
+
+\bigskip\hrule\bigskip
+
+
+
+\subsection{DFDC:}
+\label{\detokenize{notebooks/0_EDA:dfdc}}
+\sphinxAtStartPar
+Link:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+DFDC: https://www.kaggle.com/competitions/deepfake\sphinxhyphen{}detection\sphinxhyphen{}challenge/data
+
+\end{itemize}
+
+\begin{sphinxuseclass}{cell}
+\begin{sphinxuseclass}{cell_input}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{total\PYGZus{}real} \PYG{o}{=} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}dfdc/real\PYGZus{}video/*.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Total de vídeos reais: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{total\PYGZus{}real}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{total\PYGZus{}fake} \PYG{o}{=} \PYG{n}{glob}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{../data/raw/dataset\PYGZus{}dfdc/fake\PYGZus{}video/*.mp4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Total de vídeos falsos: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{total\PYGZus{}fake}\PYG{p}{)}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Total de vídeos: }\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{total\PYGZus{}real}\PYG{p}{)}\PYG{o}{+}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{total\PYGZus{}fake}\PYG{p}{)}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{cell_output}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+Total de vídeos reais:  0
+Total de vídeos falsos:  0
+Total de vídeos:  0
 \end{sphinxVerbatim}
 
 \end{sphinxuseclass}

@@ -10,3 +10,4 @@ Documentação - Projeto Aplicado XPE - MBA em Machine Learning
    :caption: Sumário:
 
    notebooks/teste
+   notebooks/0_EDA

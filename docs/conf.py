@@ -246,4 +246,4 @@ texinfo_documents = [
 # texinfo_show_urls = 'footnote'
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
-nb_remove_code_source = True
+#nb_remove_code_source = True

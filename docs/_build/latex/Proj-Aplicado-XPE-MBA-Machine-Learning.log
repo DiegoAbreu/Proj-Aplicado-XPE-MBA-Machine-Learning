@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.13)  1 JUL 2023 17:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.13)  8 JUL 2023 18:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -709,41 +709,262 @@ LaTeX Font Info:    Trying to load font information for T1+txtt on input line 9
 (/usr/local/texlive/2022/texmf-dist/tex/latex/txfonts/t1txtt.fd
 File: t1txtt.fd 2000/12/15 v3.1
 )
+LaTeX Font Info:    Font shape `T1/txtt/b/n' in size <10> not available
+(Font)              Font shape `T1/txtt/bx/n' tried instead on input line 99.
 LaTeX Font Info:    Trying to load font information for TS1+txtt on input line 
-119.
+100.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/txfonts/ts1txtt.fd
 File: ts1txtt.fd 2000/12/15 v3.1
 ) [1
 
-] (./Proj-Aplicado-XPE-MBA-Machine-Learning.ind) [2] (./Proj-Aplicado-XPE-MBA-M
-achine-Learning.aux)
+] [2]
+LaTeX Font Info:    Font shape `T1/txtt/m/it' in size <10> not available
+(Font)              Font shape `T1/txtt/m/sl' tried instead on input line 310.
+[3] [4]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[5]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[6]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[7]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[8]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[9]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[10]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[11]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[12]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[13]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[14]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[15]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[16]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[17]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[18]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[19]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[20]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[21]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[22]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[23]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[24]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[25]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[26]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[27]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[28]
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1702
+ []
+
+[29] [30]
+Cap\'{\i }tulo 2.
+[31
+
+]
+LaTeX Font Info:    Font shape `TS1/txtt/m/it' in size <10> not available
+(Font)              Font shape `TS1/txtt/m/sl' tried instead on input line 1802
+.
+LaTeX Font Info:    Trying to load font information for TS1+qtm on input line 1
+828.
+(/usr/local/texlive/2022/texmf-dist/tex/latex/tex-gyre/ts1qtm.fd
+File: ts1qtm.fd 2009/09/25 v1.2 font definition file for TS1/qtm
+) [32] [33] (./Proj-Aplicado-XPE-MBA-Machine-Learning.ind) [34] (./Proj-Aplicad
+o-XPE-MBA-Machine-Learning.aux)
 Package rerunfilecheck Info: File `Proj-Aplicado-XPE-MBA-Machine-Learning.out' 
 has not changed.
-(rerunfilecheck)             Checksum: 375D3F8B0AE09F036371EDFFAD2F380C;417.
+(rerunfilecheck)             Checksum: 7DF3EAC10325F2682634705A31ACC7D7;1001.
  ) 
 Here is how much of TeX's memory you used:
- 15181 strings out of 478268
- 251208 string characters out of 5846347
- 580064 words of memory out of 5000000
- 33020 multiletter control sequences out of 15000+600000
- 514072 words of font info for 65 fonts, out of 8000000 for 9000
+ 15279 strings out of 478268
+ 252445 string characters out of 5846347
+ 715344 words of memory out of 5000000
+ 33066 multiletter control sequences out of 15000+600000
+ 526857 words of font info for 75 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
- 70i,11n,76p,559b,468s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc}</usr/l
-ocal/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/loc
-al/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local
-/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qhvb.pfb></usr/local/texli
-ve/2022/texmf-dist/fonts/type1/public/tex-gyre/qhvbi.pfb></usr/local/texlive/20
-22/texmf-dist/fonts/type1/public/tex-gyre/qhvr.pfb></usr/local/texlive/2022/tex
-mf-dist/fonts/type1/public/tex-gyre/qtmb.pfb></usr/local/texlive/2022/texmf-dis
-t/fonts/type1/public/tex-gyre/qtmr.pfb></usr/local/texlive/2022/texmf-dist/font
-s/type1/public/txfonts/t1xtt.pfb></usr/local/texlive/2022/texmf-dist/fonts/type
-1/public/txfonts/tcxtt.pfb>
-Output written on Proj-Aplicado-XPE-MBA-Machine-Learning.pdf (6 pages, 129751 b
-ytes).
+ 70i,11n,77p,815b,543s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}{/usr/
+local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2
+022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc}</usr/local/texlive/2022/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2022/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2022/texmf-dis
+t/fonts/type1/public/tex-gyre/qhvb.pfb></usr/local/texlive/2022/texmf-dist/font
+s/type1/public/tex-gyre/qhvbi.pfb></usr/local/texlive/2022/texmf-dist/fonts/typ
+e1/public/tex-gyre/qhvr.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/pub
+lic/tex-gyre/qtmb.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/te
+x-gyre/qtmr.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/txfonts/
+t1xbtt.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/txfonts/t1xtt
+.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb><
+/usr/local/texlive/2022/texmf-dist/fonts/type1/public/txfonts/tcxtt.pfb></usr/l
+ocal/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
+Output written on Proj-Aplicado-XPE-MBA-Machine-Learning.pdf (38 pages, 191217 
+bytes).
 PDF statistics:
- 99 PDF objects out of 1000 (max. 8388607)
- 75 compressed objects within 1 object stream
- 11 named destinations out of 1000 (max. 500000)
- 53 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 289 PDF objects out of 1000 (max. 8388607)
+ 226 compressed objects within 3 object streams
+ 48 named destinations out of 1000 (max. 500000)
+ 93 words of extra memory for PDF output out of 10000 (max. 10000000)
 

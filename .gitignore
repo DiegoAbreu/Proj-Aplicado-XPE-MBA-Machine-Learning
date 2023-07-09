@@ -1,4 +1,6 @@
 # Ignore os arquivos e diretórios:
-venv/
+venv_df_proj/
 *csv
 *.mp4
+*.JPG
+*.zip

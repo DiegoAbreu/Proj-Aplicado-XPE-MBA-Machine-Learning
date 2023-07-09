@@ -1,5 +1,5 @@
 # Ativação de ambiente virtual:
-source venv/bin/activate
+source venv_df_proj/bin/activate
 # Documentação Técnica:
 ## Preparação de arquivos:
 rm -rf docs/_build

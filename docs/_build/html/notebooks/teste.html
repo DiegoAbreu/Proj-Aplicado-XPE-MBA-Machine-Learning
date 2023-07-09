@@ -47,6 +47,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/teste';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Análise Exploratória" href="0_EDA.html" />
     <link rel="prev" title="Documentação - Projeto Aplicado XPE - MBA em Machine Learning" href="../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="pt-BR"/>
@@ -127,6 +128,7 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Sumário:</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">teste</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0_EDA.html">Análise Exploratória</a></li>
 </ul>
 
     </div>
@@ -292,6 +294,13 @@ document.write(`
 <section id="importacao-de-dados">
 <h2>Importacao de dados<a class="headerlink" href="#importacao-de-dados" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/external/casas.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 <div class="cell_output docutils container">
 <div class="output text_html"><div>
 <style scoped>
@@ -358,31 +367,1578 @@ document.write(`
 </div></div></div>
 </div>
 <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;preco&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;preco&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mlflow</span>
+<span class="n">mlflow</span><span class="o">.</span><span class="n">set_experiment</span><span class="p">(</span><span class="s1">&#39;teste-mlflow&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+<span class="kn">import</span> <span class="nn">math</span>
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="modelo-1">
 <h2>Modelo 1<a class="headerlink" href="#modelo-1" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
-</div>
-<div class="cell docutils container">
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023/07/01 16:32:33 INFO mlflow.tracking.fluent: Experiment with name &#39;teste-mlflow&#39; does not exist. Creating a new experiment.
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">start_run</span><span class="p">(</span><span class="n">run_name</span><span class="o">=</span><span class="s1">&#39;Regressao Linear&#39;</span><span class="p">):</span>
+    <span class="n">lr</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+    <span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">sklearn</span><span class="o">.</span><span class="n">log_model</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span><span class="s1">&#39;lr&#39;</span><span class="p">)</span>
+    <span class="n">lr_predicted</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predicted</span><span class="p">)</span>
+    <span class="n">rmse</span> <span class="o">=</span>  <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predicted</span><span class="p">)</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s1">&#39;mse&#39;</span><span class="p">,</span><span class="n">mse</span><span class="p">)</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s1">&#39;rmse&#39;</span><span class="p">,</span><span class="n">rmse</span><span class="p">)</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s1">&#39;r2&#39;</span><span class="p">,</span><span class="n">r2</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Experiment: artifact_location=&#39;file:///Volumes/ATLAS_4TB/Github/Proj-Aplicado-XPE-MBA-Machine-Learning/notebooks/mlruns/484177537176733553&#39;, creation_time=1688239953323, experiment_id=&#39;484177537176733553&#39;, last_update_time=1688239953323, lifecycle_stage=&#39;active&#39;, name=&#39;teste-mlflow&#39;, tags={}&gt;
-</pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
 </div>
 </section>
 <section id="modelo-2">
 <h2>Modelo 2<a class="headerlink" href="#modelo-2" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBRegressor</span>
+<span class="n">xgb_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="s1">&#39;random_state&#39;</span><span class="p">:</span><span class="mi">42</span>
+<span class="p">}</span>
+<span class="k">with</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">start_run</span><span class="p">(</span><span class="n">run_name</span><span class="o">=</span><span class="s1">&#39;Xgboost&#39;</span><span class="p">):</span>
+    <span class="n">xgb</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">(</span><span class="o">**</span><span class="n">xgb_params</span><span class="p">)</span>
+    <span class="n">xgb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">xgboost</span><span class="o">.</span><span class="n">log_model</span><span class="p">(</span><span class="n">xgb</span><span class="p">,</span><span class="s1">&#39;xgboost&#39;</span><span class="p">)</span>
+    <span class="n">xgb_predicted</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">xgb_predicted</span><span class="p">)</span>
+    <span class="n">rmse</span> <span class="o">=</span>  <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">xgb_predicted</span><span class="p">)</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s1">&#39;mse&#39;</span><span class="p">,</span><span class="n">mse</span><span class="p">)</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s1">&#39;rmse&#39;</span><span class="p">,</span><span class="n">rmse</span><span class="p">)</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s1">&#39;r2&#39;</span><span class="p">,</span><span class="n">r2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/diegoabreu/opt/anaconda3/lib/python3.8/site-packages/xgboost/data.py:262: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
   elif isinstance(data.columns, (pd.Int64Index, pd.RangeIndex)):
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/*mp4&quot;</span><span class="p">)</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;../data/raw/dataset_faceforensics/fake_video/000_003.mp4&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/df_&quot;</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.mp4&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;../data/raw/dataset_faceforensics/fake_video/df_000_003.mp4&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/*mp4&quot;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/df_&quot;</span> <span class="o">+</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.mp4&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/Face2Face/c23/videos/*mp4&quot;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/Face2Face/c23/videos/f2f_&quot;</span> <span class="o">+</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/Face2Face/c23/videos/&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.mp4&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/FaceSwap/c23/videos/*mp4&quot;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/FaceSwap/c23/videos/fs_&quot;</span> <span class="o">+</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/FaceSwap/c23/videos/&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.mp4&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/NeuralTextures/c23/videos/*mp4&quot;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/NeuralTextures/c23/videos/nt_&quot;</span> <span class="o">+</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_faceforensics/fake_video/NeuralTextures/c23/videos/&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.mp4&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">json_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;../data/raw/dataset_dfdc/a_identificar/dfdc_train_part_0/metadata.json&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pastas</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_dfdc/a_identificar/*&quot;</span><span class="p">)</span>
+<span class="n">json_files</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">pasta</span> <span class="ow">in</span> <span class="n">pastas</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">json_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="s2">&quot;/*json&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">except</span><span class="p">:</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;erro: &quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+<span class="n">json_files</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="n">json_meta</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">json_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="c1">#json_meta</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="n">pastas</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_dfdc/a_identificar/*&quot;</span><span class="p">)</span>
+<span class="n">json_files</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">pasta</span> <span class="ow">in</span> <span class="n">pastas</span><span class="p">:</span>
+    <span class="c1">#print(glob(pasta+&quot;/*json&quot;)[0])</span>
+    <span class="n">json_meta_file</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">pasta</span><span class="o">+</span><span class="s2">&quot;/*json&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">json_meta</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">json_meta_file</span><span class="p">))</span>
+    <span class="c1">#print(json_meta)</span>
+    <span class="n">videos</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">pasta</span><span class="o">+</span><span class="s2">&quot;/*mp4&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">video</span> <span class="ow">in</span> <span class="n">videos</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">video</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span> <span class="n">pasta</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">json_meta</span><span class="p">[</span><span class="n">z</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;FAKE&#39;</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">video</span><span class="p">,</span><span class="s2">&quot;../data/raw/dataset_dfdc/fake_video/&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">video</span><span class="p">,</span><span class="s2">&quot;../data/raw/dataset_dfdc/real_video/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_dfdc/real_video/*&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>19154
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="n">pastas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;/*mp4&quot;</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span> <span class="s2">&quot;../data/raw/dataset_dfdc/a_identificar/dfdc_train_part_0/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">json_meta</span><span class="p">[</span><span class="n">z</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;FAKE&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;fake&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;real&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+real
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+real
+fake
+real
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+real
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+real
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+real
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+real
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+real
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+fake
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">json_meta</span><span class="p">[</span><span class="n">z</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;FAKE&#39;
 </pre></div>
 </div>
 </div>
@@ -410,6 +1966,15 @@ document.write(`
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Documentação - Projeto Aplicado XPE - MBA em Machine Learning</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="0_EDA.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Análise Exploratória</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   
