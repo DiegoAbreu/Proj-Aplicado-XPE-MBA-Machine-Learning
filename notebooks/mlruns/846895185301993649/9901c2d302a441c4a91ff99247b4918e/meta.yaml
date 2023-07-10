@@ -1,0 +1,16 @@
+artifact_uri: file:///Volumes/1TB/GitHub/notebooks/mlruns/846895185301993649/9901c2d302a441c4a91ff99247b4918e/artifacts
+deleted_time: 1688931547122
+end_time: 1688931511514
+entry_point_name: ''
+experiment_id: '846895185301993649'
+lifecycle_stage: deleted
+run_id: 9901c2d302a441c4a91ff99247b4918e
+run_name: MesoNet
+run_uuid: 9901c2d302a441c4a91ff99247b4918e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1688931511448
+status: 3
+tags: []
+user_id: diegoabreu

@@ -1,0 +1,16 @@
+artifact_uri: file:///Volumes/1TB/Proj-Aplicado-XPE-MBA-Machine-Learning/notebooks/mlruns/706091484860546630/e58e508e34334ba28d67e14efa6591b7/artifacts
+deleted_time: 1688952508130
+end_time: 1688951377818
+entry_point_name: ''
+experiment_id: '706091484860546630'
+lifecycle_stage: deleted
+run_id: e58e508e34334ba28d67e14efa6591b7
+run_name: EfficientNetV2B0_celebdf
+run_uuid: e58e508e34334ba28d67e14efa6591b7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1688951377781
+status: 3
+tags: []
+user_id: diegoabreu

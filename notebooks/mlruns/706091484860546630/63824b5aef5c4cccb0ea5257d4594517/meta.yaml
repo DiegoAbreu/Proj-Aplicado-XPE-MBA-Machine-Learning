@@ -1,0 +1,16 @@
+artifact_uri: file:///Volumes/1TB/Proj-Aplicado-XPE-MBA-Machine-Learning/notebooks/mlruns/706091484860546630/63824b5aef5c4cccb0ea5257d4594517/artifacts
+deleted_time: 1688932459088
+end_time: 1688931635235
+entry_point_name: ''
+experiment_id: '706091484860546630'
+lifecycle_stage: deleted
+run_id: 63824b5aef5c4cccb0ea5257d4594517
+run_name: MesoNet
+run_uuid: 63824b5aef5c4cccb0ea5257d4594517
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1688931634899
+status: 3
+tags: []
+user_id: diegoabreu
