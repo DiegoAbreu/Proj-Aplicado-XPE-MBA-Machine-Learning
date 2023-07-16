@@ -3,6 +3,7 @@ from PIL import Image
 from glob import glob
 import os
 
+
 st.set_page_config(page_title='Detector de DeepFakes', page_icon='🔍️', layout="wide", 
                    initial_sidebar_state="auto", menu_items=None)
 st.title("Projeto Aplicado XPE | MBA em Machine Learning")
@@ -25,6 +26,10 @@ st.markdown(
     - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
 """
 )
+st.write(os.getcwd())
+os.chdir('../')
+st.write(os.getcwd())
+
 
 def save_uploadedvideo(uploadedfile):
     try:
@@ -50,3 +55,4 @@ with st.form("my-form", clear_on_submit=True):
       else:
           st.write('Arquivo não compatível. Por favor refaça o upload de um arquivo de vídeo em .mp4.')
 
+st.image("references/images/Arquitetura.png", width=200)
