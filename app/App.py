@@ -24,6 +24,7 @@ st.markdown(
 """
 )
 
-image = Image.open('../references/images/Arquitetura.png')
+#image = Image.open('https://raw.githubusercontent.com/DiegoAbreu/Proj-Aplicado-XPE-MBA-Machine-Learning/main/references/images/Arquitetura.png')
 
-st.image(image, caption='Sunrise by the mountains')
+st.image('https://raw.githubusercontent.com/DiegoAbreu/Proj-Aplicado-XPE-MBA-Machine-Learning/main/references/images/Arquitetura.png', 
+          caption='Sunrise by the mountains')
