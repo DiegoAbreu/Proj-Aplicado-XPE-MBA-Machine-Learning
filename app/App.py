@@ -27,7 +27,8 @@ st.markdown(
 
 #image = Image.open('https://raw.githubusercontent.com/DiegoAbreu/Proj-Aplicado-XPE-MBA-Machine-Learning/main/references/images/Arquitetura.png')
 
-st.image('references/images/crisp-dm_diagram.png', 
-          caption='Sunrise by the mountains')
+try: st.image('references/images/crisp-dm_diagram.png')
+except: st.image('../references/images/crisp-dm_diagram.png')
+#st.image('../references/images/crisp-dm_diagram.png')
 
 st.write(glob('*'))
