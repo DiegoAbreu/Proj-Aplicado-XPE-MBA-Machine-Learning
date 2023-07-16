@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
 from glob import glob
+import os
 
 st.set_page_config(page_title='Detector de DeepFakes', page_icon='🔍️', layout="wide", 
                    initial_sidebar_state="auto", menu_items=None)
@@ -25,10 +26,27 @@ st.markdown(
 """
 )
 
-#image = Image.open('https://raw.githubusercontent.com/DiegoAbreu/Proj-Aplicado-XPE-MBA-Machine-Learning/main/references/images/Arquitetura.png')
+def save_uploadedvideo(uploadedfile):
+    try:
+        with open(os.path.join("data/external/",uploadedfile.name),"wb") as f:
+            f.write(uploadedfile.getbuffer())
+    except: 
+       with open(os.path.join("../data/external/",uploadedfile.name),"wb") as f:
+            f.write(uploadedfile.getbuffer())
 
-try: st.image('references/images/crisp-dm_diagram.png')
-except: st.image('../references/images/crisp-dm_diagram.png')
-#st.image('../references/images/crisp-dm_diagram.png')
+## Caixa de Upload
+with st.form("my-form", clear_on_submit=True):
+  uploaded_files = st.file_uploader("Envie um arquivo .ZIP com todas as planilhas de funcionários + o arquivo de consolidação do parceiro em xlsx.", accept_multiple_files=True)
+  submitted = st.form_submit_button("Processar")
+  if submitted and uploaded_files is not None:
+    st.write("Leitura concluída.")
+    for i in uploaded_files:
+      if i.name.split('.')[1] == 'mp4' or i.split('.')[1] == 'mpg4':
+        save_uploadedvideo(i)
+        video_file = open(glob('../data/external/*.mp4')[0], 'rb')
+        video_bytes = video_file.read()
+        st.video(video_bytes)
+        st.write('Autor: Diego Abreu')
+      else:
+          st.write('Arquivo não compatível. Por favor refaça o upload de um arquivo de vídeo em .mp4.')
 
-st.write(glob('*'))
