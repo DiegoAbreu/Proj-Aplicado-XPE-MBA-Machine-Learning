@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image
+from glob import glob
 
 st.set_page_config(page_title='Detector de DeepFakes', page_icon='🔍️', layout="wide", 
                    initial_sidebar_state="auto", menu_items=None)
@@ -28,3 +29,5 @@ st.markdown(
 
 st.image('https://raw.githubusercontent.com/DiegoAbreu/Proj-Aplicado-XPE-MBA-Machine-Learning/main/references/images/Arquitetura.png', 
           caption='Sunrise by the mountains')
+
+st.write(glob('*'))
