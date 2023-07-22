@@ -10,6 +10,7 @@ import streamlit as st
 from PIL import Image
 from glob import glob
 import numpy as np
+import cv2
 
 # configuracao da página
 st.set_page_config(page_title='Detector de DeepFakes', page_icon='🔍️', layout="wide", 
