@@ -3,8 +3,6 @@ import sys
 import streamlit as st
 from PIL import Image
 from glob import glob
-import numpy as np
-import cv2
 path_funcoes = os.path.abspath("src/app")
 sys.path.append(path_funcoes)
 import funcoes
@@ -48,8 +46,6 @@ with tab1:
       final_real = analise[3]
       final_fake = analise[4]
     if uploaded_video is not None:
-      #img_faces = image_select(label="",images= funcoes.caminho_faces(),captions=[0,1,2,3,4,5,6,7,8,9],use_container_width=False)
-      #st.image(img_faces)
       faces_list = funcoes.caminho_faces()
       idx = 0 
       for _ in range(len(faces_list)-1): 
@@ -79,15 +75,28 @@ with tab1:
       with col1:
         st.image('data/interim/analise.gif')
       with col2:
-        #final_real = 10
+        """\n"""   
+        """\n"""   
+        """\n"""   
+        """\n"""   
+        #final_real = 5
         #final_fake = 10
+        subcol1,subcol2= st.columns([1,4])
         if final_real > final_fake:
-           """ REAL"""
+            with subcol1:
+              st.image('references/images/resultado_real.png')
+            with subcol2:
+              """\n""" 
+              """ #### REAL"""
         elif final_real == final_fake:
-            """ INCONCLUSIVO """
+            """ #### INCONCLUSIVO """
         else:
-           """ DEEP FAKE """
-           
+            with subcol1:
+              st.image('references/images/resultado_fake.png')
+            with subcol2:
+              """\n""" 
+              """ #### DEEP FAKE """
+        """\n"""   
         st.write("Probabilidade de ser Real: ",round((final_real*100),4))
         st.write("Probabilidade de ser um Deep Fake: ",round((final_fake*100),4))
     else:
