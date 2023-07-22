@@ -63,13 +63,13 @@ class Meso4(Classifier):
     
 # Utilização de pesos já treinados
 meso = Meso4()
-meso.load('../src/models/Meso4_DF.h5')
+meso.load('src/models/Meso4_DF.h5')
 
 def roda_modelo():
     # Preparação da imagem
     # Rescaling pixel values (between 1 and 255) to a range between 0 and 1
     dataGenerator = ImageDataGenerator(rescale=1./255)
-    directory = '../data/interim/'
+    directory = 'data/interim/'
     # Instantiating generator to feed images through the network
     generator = dataGenerator.flow_from_directory(
         directory,
