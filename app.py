@@ -1,16 +1,16 @@
 import os
 import sys
+import streamlit as st
+from PIL import Image
+from glob import glob
+import numpy as np
+import cv2
 path_funcoes = os.path.abspath("src/app")
 sys.path.append(path_funcoes)
 import funcoes
 path_modelo = os.path.abspath("src/models")
 sys.path.append(path_modelo)
 import modelo_final
-import streamlit as st
-from PIL import Image
-from glob import glob
-import numpy as np
-import cv2
 
 # configuracao da página
 st.set_page_config(page_title='Detector de DeepFakes', page_icon='🔍️', layout="wide", 
