@@ -2,6 +2,7 @@ import os
 import cv2
 from glob import glob
 from PIL import Image
+import time
 
 # Salva vídeo
 def save_uploaded_video(uploadedfile):
@@ -51,6 +52,14 @@ def limpar():
         filelist = [ f for f in os.listdir('data/interim/faces/') if (f.endswith(".jpg"))]
         for f in filelist:
             os.remove(os.path.join('data/interim/faces/', f))
+    try:
+        filelist = [ f for f in os.listdir('../data/interim/') if (f.endswith(".gif"))]
+        for f in filelist:
+            os.remove(os.path.join('../data/interim/', f))
+    except: 
+        filelist = [ f for f in os.listdir('data/interim/') if (f.endswith(".gif"))]
+        for f in filelist:
+            os.remove(os.path.join('data/interim/', f))
 
 # Captura de face:
 try:
