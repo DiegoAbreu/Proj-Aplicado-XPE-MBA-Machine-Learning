@@ -23,7 +23,13 @@ with tab1:
   ## Caixa de Upload
   with st.form("caixa_upload", clear_on_submit=True):
     uploaded_video = st.file_uploader("Faça o upload de um vídeo em .mp4", accept_multiple_files=False)
-    botao_enviar = st.form_submit_button("Enviar vídeo e analisar.")
+    upcol1,upcol2,upcol3= st.columns([2,2,1])
+    with upcol1:
+      botao_enviar = st.form_submit_button("Enviar vídeo e analisar.")
+    with upcol3:
+       """\n"""
+       st.write("Exemplos para testes :  [  🎥](https://drive.google.com/drive/folders/1g2j6IwiFAexctpHRCXyRjkLHb-lXUHPL?usp=sharing)")
+       
     if botao_enviar and uploaded_video is not None:
       if uploaded_video.name.split('.')[1] == 'mp4' or uploaded_video.name.split('.')[1] == 'mpg4':
         funcoes.save_uploaded_video(uploaded_video)
