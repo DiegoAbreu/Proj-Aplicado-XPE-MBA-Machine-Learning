@@ -1,8 +1,9 @@
 artifact_uri: file:///Volumes/1TB/Proj-Aplicado-XPE-MBA-Machine-Learning/notebooks/mlruns/706091484860546630/064815312eda452494ff582ba1de2aec/artifacts
+deleted_time: 1690122185973
 end_time: null
 entry_point_name: ''
 experiment_id: '706091484860546630'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 064815312eda452494ff582ba1de2aec
 run_name: brawny-pig-129
 run_uuid: 064815312eda452494ff582ba1de2aec
