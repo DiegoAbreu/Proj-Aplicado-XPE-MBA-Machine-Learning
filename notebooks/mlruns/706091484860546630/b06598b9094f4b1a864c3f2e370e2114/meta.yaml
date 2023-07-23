@@ -1,0 +1,16 @@
+artifact_uri: file:///Volumes/1TB/Proj-Aplicado-XPE-MBA-Machine-Learning/notebooks/mlruns/706091484860546630/b06598b9094f4b1a864c3f2e370e2114/artifacts
+deleted_time: 1690081118748
+end_time: null
+entry_point_name: ''
+experiment_id: '706091484860546630'
+lifecycle_stage: deleted
+run_id: b06598b9094f4b1a864c3f2e370e2114
+run_name: dapper-shrimp-334
+run_uuid: b06598b9094f4b1a864c3f2e370e2114
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1690081009373
+status: 1
+tags: []
+user_id: diegoabreu
