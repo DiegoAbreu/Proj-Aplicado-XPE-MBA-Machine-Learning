@@ -3,7 +3,6 @@ import cv2
 from glob import glob
 from PIL import Image
 import time
-import ffmpeg
 
 
 # Salva vídeo
