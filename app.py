@@ -13,8 +13,7 @@ import modelo_final
 # configuracao da página
 st.set_page_config(page_title='Detector de DeepFakes', page_icon='🔍️', layout="wide", 
                    initial_sidebar_state="auto", menu_items=None)
-""" # Detector de DeepFake
-Projeto de conclusão do curso MBA em Machine Learning. """
+""" # Detector de DeepFake"""
 tab1, tab2= st.tabs(["Aplicação", "Sobre"])
 with tab1:
   if st.button("Nova análise"): 
@@ -112,4 +111,6 @@ with tab1:
        st.write('Arquivo não compatível. Por favor refaça o upload de um arquivo de vídeo em .mp4.')
        
 with tab2:
-  st.write('tal tala tal')
+  """Projeto de conclusão do curso MBA em Machine Learning da [:green[XPE]](https://www.xpeducacao.com.br/).
+  \n - Autor: [:green[Diego Abreu]](https://www.linkedin.com/in/diego-s-abreu/)
+  \n- Repositório: [:green[Github]](https://github.com/DiegoAbreu/Proj-Aplicado-XPE-MBA-Machine-Learning)"""
