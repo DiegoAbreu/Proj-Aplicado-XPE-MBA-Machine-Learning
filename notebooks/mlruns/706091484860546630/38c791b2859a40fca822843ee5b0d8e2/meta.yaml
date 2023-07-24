@@ -1,8 +1,9 @@
 artifact_uri: file:///Volumes/1TB/Proj-Aplicado-XPE-MBA-Machine-Learning/notebooks/mlruns/706091484860546630/38c791b2859a40fca822843ee5b0d8e2/artifacts
+deleted_time: 1690240641648
 end_time: 1688954491375
 entry_point_name: ''
 experiment_id: '706091484860546630'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 38c791b2859a40fca822843ee5b0d8e2
 run_name: EfficientNetV2B0_faceforensics
 run_uuid: 38c791b2859a40fca822843ee5b0d8e2
