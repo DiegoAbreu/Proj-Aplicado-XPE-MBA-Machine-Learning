@@ -248,3 +248,4 @@ myst_enable_extensions = ["dollarmath", "amsmath"]
 html_context = {"default_mode": "light"}
 
 #nb_remove_code_source = True
+
