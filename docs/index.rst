@@ -9,5 +9,9 @@ Documentação - Projeto Aplicado XPE - MBA em Machine Learning
    :maxdepth: 4
    :caption: Sumário:
 
-   notebooks/teste
    notebooks/0_EDA
+   notebooks/1_PRE_PROCESSAMENTO
+   notebooks/2_MESO
+   notebooks/3_DECOMPOSICAO_DE_ESPECTRO
+   notebooks/4_EFFICIENTNET-V2
+   notebooks/5_ENSEMBLE

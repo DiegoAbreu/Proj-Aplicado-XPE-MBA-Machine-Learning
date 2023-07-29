@@ -1,0 +1,1409 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="pt-BR" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Análise Exploratória e Pré-processamento &#8212; Projeto Aplicado XPE - MBA em Machine Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/1_PRE_PROCESSAMENTO';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Modelo MesoNet" href="2_MESO.html" />
+    <link rel="prev" title="Análise Exploratória" href="0_EDA.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="pt-BR"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Projeto Aplicado XPE - MBA em Machine Learning</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Sumário:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0_EDA.html">Análise Exploratória</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Análise Exploratória e Pré-processamento</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_MESO.html">Modelo MesoNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_DECOMPOSICAO_DE_ESPECTRO.html">Decomposição de Espectro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_EFFICIENTNET-V2.html">EfficientNET</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_ENSEMBLE.html">Ensemble</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/1_PRE_PROCESSAMENTO.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Análise Exploratória e Pré-processamento</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">Datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#captura-de-frames">Captura de frames</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteccao-de-faces">Detecção de faces</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regiao-de-interesse">Região de interesse</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcao-para-aplicar-a-todos-os-videos">Função para aplicar a todos os videos:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#divisao-treino-e-teste">Divisão Treino e Teste</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-de-misto">Dataset de Misto:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="analise-exploratoria-e-pre-processamento">
+<h1>Análise Exploratória e Pré-processamento<a class="headerlink" href="#analise-exploratoria-e-pre-processamento" title="Permalink to this heading">#</a></h1>
+<section id="datasets">
+<h2>Datasets<a class="headerlink" href="#datasets" title="Permalink to this heading">#</a></h2>
+<p>Os datasets serão armazenados no diretório data conforme a estrutura a seguir:</p>
+<p>…</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>├── data                            &lt;- Diretório de dados.
+│   ├── external                    &lt;- Diretório de dados externos(temporário).
+│   │   └── input_video             &lt;- Diretório para armazenar o vídeo recebido via 
+│   │                                  upload para classificação.
+│   │   
+│   ├── interim                     &lt;- Diretório de dados em processamento (temporário).
+│   │   └── input_face              &lt;- Diretório para armazenar os frames processados 
+│   │                                  do vídeo recebido via upload para classificação.
+│   │
+│   ├── processed                   &lt;- Diretório de dados processados.
+│   │   ├── dataset_celebdf         &lt;- Diretório de faces do dataset celebdf
+│   │   │   └── real_face           &lt;- Diretório de faces reais
+│   │   │   └── fake_face           &lt;- Diretório de faces falsas
+│   │   │
+│   │   ├── dataset_faceforensics   &lt;- Diretório de faces do dataset faceforensics
+│   │   │   └── real_face           &lt;- Diretório de faces reais
+│   │   │   └── fake_face           &lt;- Diretório de faces falsas
+│   │   │
+│   │   └── dataset_dfdc            &lt;- Diretório de faces do dataset dfdc
+│   │       └── real_face           &lt;- Diretório de faces reais
+│   │       └── fake_face           &lt;- Diretório de faces falsas
+│   │   
+│   └── raw                         &lt;- Diretório de dados brutos.
+│       ├── dataset_celebdf         &lt;- Diretório de vídeos do dataset celebdf
+│       │   └── real_video          &lt;- Diretório de vídeos reais
+│       │   └── fake_video          &lt;- Diretório de vídeos falsos
+│       │
+│       ├── dataset_faceforensics   &lt;- Diretório de vídeos do dataset faceforensics
+│       │   └── real_video          &lt;- Diretório de vídeos reais
+│       │   └── fake_video          &lt;- Diretório de vídeos falsos
+│       │
+│       └── dataset_dfdc            &lt;- Diretório de vídeos do dataset dfdc
+│           └── real_video          &lt;- Diretório de vídeos reais
+│           └── fake_video          &lt;- Diretório de vídeos falsos
+</pre></div>
+</div>
+<p>…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bibliotecas</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b64encode</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="captura-de-frames">
+<h3>Captura de frames<a class="headerlink" href="#captura-de-frames" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Captura de Frames:</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;celebdf&#39;</span>
+<span class="n">videos_reais</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_&quot;</span><span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/real_video/*.mp4&quot;</span><span class="p">)</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">videos_reais</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span>
+<span class="n">ret</span><span class="p">,</span><span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_POS_MSEC</span><span class="p">,(</span><span class="n">count</span><span class="o">*</span><span class="mi">1000</span><span class="p">))</span>   
+    <span class="n">ret</span><span class="p">,</span><span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">image0</span> <span class="o">=</span> <span class="n">frame</span>
+    <span class="k">elif</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">image1</span> <span class="o">=</span> <span class="n">frame</span>
+    <span class="k">elif</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">image2</span> <span class="o">=</span> <span class="n">frame</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">display_img</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+<span class="n">frames_capturados</span> <span class="o">=</span> <span class="p">[</span><span class="n">image0</span><span class="p">,</span><span class="n">image1</span><span class="p">,</span><span class="n">image2</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">frames_capturados</span><span class="p">:</span> <span class="n">display_img</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/3ef556d821c74cd09e069ffd4f4fd91046075b52bf4c86008783f59c6d425481.png" src="../_images/3ef556d821c74cd09e069ffd4f4fd91046075b52bf4c86008783f59c6d425481.png" />
+<img alt="../_images/ee817a20735a90ec245bf39c1661d5b693b9e2daff11010cfb1309e33d6a8e36.png" src="../_images/ee817a20735a90ec245bf39c1661d5b693b9e2daff11010cfb1309e33d6a8e36.png" />
+<img alt="../_images/cda06758db7eff11a2d8fb153855c9b354ee82036fe8257e1b41c9d810cb638b.png" src="../_images/cda06758db7eff11a2d8fb153855c9b354ee82036fe8257e1b41c9d810cb638b.png" />
+</div>
+</div>
+</section>
+<section id="deteccao-de-faces">
+<h3>Detecção de faces<a class="headerlink" href="#deteccao-de-faces" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">face_cascade</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CascadeClassifier</span><span class="p">(</span><span class="s1">&#39;../src/features/haarcascades/haarcascade_frontalface_default.xml&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">detect_face</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>   
+    <span class="n">face_img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">face_rects</span> <span class="o">=</span> <span class="n">face_cascade</span><span class="o">.</span><span class="n">detectMultiScale</span><span class="p">(</span><span class="n">face_img</span><span class="p">,</span><span class="n">scaleFactor</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">minNeighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">)</span> <span class="ow">in</span> <span class="n">face_rects</span><span class="p">:</span> 
+        <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">face_img</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="p">,</span><span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>    
+    <span class="k">return</span> <span class="n">face_img</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">frames_capturados</span><span class="p">:</span> <span class="n">display_img</span><span class="p">(</span><span class="n">detect_face</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/f3b3d5bcadc0d8cb5c072be536c97e0e01a7ee79b4d13a5e077302f7a14fbbbf.png" src="../_images/f3b3d5bcadc0d8cb5c072be536c97e0e01a7ee79b4d13a5e077302f7a14fbbbf.png" />
+<img alt="../_images/b98d375253055057427bd7013a43d1d19a436ebc24b2ea63a3424d0159c69a56.png" src="../_images/b98d375253055057427bd7013a43d1d19a436ebc24b2ea63a3424d0159c69a56.png" />
+<img alt="../_images/fa601a2d31b2a868a3cd9e921cebad7614126446571bbdc02657492f6504eb85.png" src="../_images/fa601a2d31b2a868a3cd9e921cebad7614126446571bbdc02657492f6504eb85.png" />
+</div>
+</div>
+</section>
+<section id="regiao-de-interesse">
+<h3>Região de interesse<a class="headerlink" href="#regiao-de-interesse" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#ROI</span>
+<span class="k">def</span> <span class="nf">ROI</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="mi">30</span> 
+    <span class="n">face_img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">face_rects</span> <span class="o">=</span> <span class="n">face_cascade</span><span class="o">.</span><span class="n">detectMultiScale</span><span class="p">(</span><span class="n">face_img</span><span class="p">,</span><span class="n">scaleFactor</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">minNeighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">)</span> <span class="ow">in</span> <span class="n">face_rects</span><span class="p">:</span> 
+        <span class="n">roi</span> <span class="o">=</span> <span class="n">face_img</span><span class="p">[</span><span class="n">y</span><span class="o">-</span><span class="n">offset</span><span class="p">:</span><span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="o">+</span><span class="n">offset</span><span class="p">,</span><span class="n">x</span><span class="o">-</span><span class="n">offset</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="o">+</span><span class="n">offset</span><span class="p">]</span> 
+    <span class="k">return</span> <span class="n">roi</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">frames_capturados</span><span class="p">:</span> <span class="n">display_img</span><span class="p">(</span> <span class="n">ROI</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/a80cfcd8d4869f1c79498a02d2cda0156bb94019543467c3cc2a9aeafe918b9c.png" src="../_images/a80cfcd8d4869f1c79498a02d2cda0156bb94019543467c3cc2a9aeafe918b9c.png" />
+<img alt="../_images/4a247f3bab1950a7a630da096810486a25760ca53315e266fe5778aaa8868e33.png" src="../_images/4a247f3bab1950a7a630da096810486a25760ca53315e266fe5778aaa8868e33.png" />
+<img alt="../_images/8e6ee531ffd4a17043b46421a32a8510131bda69729dd3676d57825f385ea7c3.png" src="../_images/8e6ee531ffd4a17043b46421a32a8510131bda69729dd3676d57825f385ea7c3.png" />
+</div>
+</div>
+</section>
+<section id="funcao-para-aplicar-a-todos-os-videos">
+<h3>Função para aplicar a todos os videos:<a class="headerlink" href="#funcao-para-aplicar-a-todos-os-videos" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save Faces:</span>
+<span class="k">def</span> <span class="nf">save_faces</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">categoria</span><span class="p">,</span><span class="n">lista_videos</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lista_videos</span><span class="p">:</span> 
+        <span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">ret</span><span class="p">,</span><span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">11</span><span class="p">:</span>
+                <span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_POS_MSEC</span><span class="p">,(</span><span class="n">count</span><span class="o">*</span><span class="mi">1000</span><span class="p">))</span>   
+                <span class="n">ret</span><span class="p">,</span><span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                <span class="n">image0</span> <span class="o">=</span> <span class="n">frame</span>
+                <span class="n">image0</span> <span class="o">=</span> <span class="n">ROI</span><span class="p">(</span><span class="n">image0</span><span class="p">)</span>
+                <span class="n">arquivo</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">dataset</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">categoria</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.mp4&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">arquivo_nome</span> <span class="o">=</span> <span class="s2">&quot;../data/processed/dataset_&quot;</span> <span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span> <span class="n">categoria</span><span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">arquivo</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.jpg&quot;</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">arquivo_nome</span><span class="p">,</span><span class="n">image0</span><span class="p">)</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Celebdf</span>
+<span class="c1">## Reais</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;celebdf&#39;</span>
+<span class="n">pasta</span> <span class="o">=</span> <span class="s1">&#39;real_video&#39;</span>
+<span class="n">categoria</span> <span class="o">=</span> <span class="s1">&#39;real_face&#39;</span>
+<span class="n">lista_videos</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_&quot;</span><span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">pasta</span><span class="o">+</span><span class="s2">&quot;/*.mp4&quot;</span><span class="p">)</span>
+<span class="n">save_faces</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">categoria</span><span class="p">,</span><span class="n">lista_videos</span><span class="p">)</span>
+<span class="c1">## Fakes</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;celebdf&#39;</span>
+<span class="n">pasta</span> <span class="o">=</span> <span class="s1">&#39;real_video&#39;</span>
+<span class="n">categoria</span> <span class="o">=</span> <span class="s1">&#39;fake_face&#39;</span>
+<span class="n">lista_videos</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_&quot;</span><span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">pasta</span><span class="o">+</span><span class="s2">&quot;/*.mp4&quot;</span><span class="p">)</span>
+<span class="n">save_faces</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">categoria</span><span class="p">,</span><span class="n">lista_videos</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># faceforensics</span>
+<span class="c1">## Reais</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;faceforensics&#39;</span>
+<span class="n">pasta</span> <span class="o">=</span> <span class="s1">&#39;real_video&#39;</span>
+<span class="n">categoria</span> <span class="o">=</span> <span class="s1">&#39;real_face&#39;</span>
+<span class="n">lista_videos</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_&quot;</span><span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">pasta</span><span class="o">+</span><span class="s2">&quot;/*.mp4&quot;</span><span class="p">)</span>
+<span class="n">save_faces</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">categoria</span><span class="p">,</span><span class="n">lista_videos</span><span class="p">)</span>
+<span class="c1">## Fakes</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;faceforensics&#39;</span>
+<span class="n">pasta</span> <span class="o">=</span> <span class="s1">&#39;fake_video&#39;</span>
+<span class="n">categoria</span> <span class="o">=</span> <span class="s1">&#39;fake_face&#39;</span>
+<span class="n">lista_videos</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_&quot;</span><span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">pasta</span><span class="o">+</span><span class="s2">&quot;/*.mp4&quot;</span><span class="p">)</span>
+<span class="n">save_faces</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">categoria</span><span class="p">,</span><span class="n">lista_videos</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dfdc</span>
+<span class="c1">## Reais</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;dfdc&#39;</span>
+<span class="n">pasta</span> <span class="o">=</span> <span class="s1">&#39;real_video&#39;</span>
+<span class="n">categoria</span> <span class="o">=</span> <span class="s1">&#39;real_face&#39;</span>
+<span class="n">lista_videos</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_&quot;</span><span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">pasta</span><span class="o">+</span><span class="s2">&quot;/*.mp4&quot;</span><span class="p">)</span>
+<span class="n">save_faces</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">categoria</span><span class="p">,</span><span class="n">lista_videos</span><span class="p">)</span>
+<span class="c1">## Fakes</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;dfdc&#39;</span>
+<span class="n">pasta</span> <span class="o">=</span> <span class="s1">&#39;fake_video&#39;</span>
+<span class="n">categoria</span> <span class="o">=</span> <span class="s1">&#39;fake_face&#39;</span>
+<span class="n">lista_videos</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/raw/dataset_&quot;</span><span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">pasta</span><span class="o">+</span><span class="s2">&quot;/*.mp4&quot;</span><span class="p">)</span>
+<span class="n">save_faces</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">categoria</span><span class="p">,</span><span class="n">lista_videos</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="divisao-treino-e-teste">
+<h3>Divisão Treino e Teste<a class="headerlink" href="#divisao-treino-e-teste" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># categorizacao dos videos em treino e teste</span>
+<span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;celebdf&#39;</span><span class="p">,</span><span class="s1">&#39;faceforensics&#39;</span><span class="p">,</span><span class="s1">&#39;dfdc&#39;</span><span class="p">]:</span>
+    <span class="n">arquivo_metadados</span> <span class="o">=</span> <span class="s2">&quot;../data/raw/dataset_&quot;</span><span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/metadados.csv&quot;</span>
+    <span class="c1">#print(arquivo_metadados)</span>
+    <span class="n">metadados</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">arquivo_metadados</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="c1">#display(metadados.head())</span>
+    <span class="c1">#metadados = metadados.reset_index()</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">metadados</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">])</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">metadados</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+    <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">treino</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">treino</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_train</span>
+    <span class="n">treino</span><span class="p">[</span><span class="s1">&#39;particao&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;treino&#39;</span>
+    <span class="n">teste</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">teste</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_test</span>
+    <span class="n">teste</span><span class="p">[</span><span class="s1">&#39;particao&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;teste&#39;</span>
+    <span class="c1">#display(treino)</span>
+    <span class="c1">#display(teste)</span>
+    <span class="n">metadados_id_part</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">treino</span><span class="p">,</span><span class="n">teste</span><span class="p">])</span>
+    <span class="n">metadados_id_part</span> <span class="o">=</span> <span class="n">metadados_id_part</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">metadados_id_part</span><span class="p">[</span><span class="s1">&#39;video&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadados_id_part</span><span class="p">[</span><span class="s1">&#39;video&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">metadados_id_part</span><span class="p">[</span><span class="s1">&#39;video&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadados_id_part</span><span class="p">[</span><span class="s1">&#39;video&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">metadados_id_part</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;../data/processed/dataset_&quot;</span><span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/metadados_videos.csv&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">metadados_id_part</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">metadados_id_part</span><span class="p">[</span><span class="s1">&#39;particao&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+    <span class="k">del</span> <span class="n">metadados_id_part</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--------------------------------------------------
+celebdf
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>video</th>
+      <th>descricao</th>
+      <th>label</th>
+      <th>particao</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>id30_id29_0007.mp4</td>
+      <td>FAKE</td>
+      <td>0</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>id2_id23_0003.mp4</td>
+      <td>FAKE</td>
+      <td>0</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>id37_id29_0000.mp4</td>
+      <td>FAKE</td>
+      <td>0</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>id1_id35_0009.mp4</td>
+      <td>FAKE</td>
+      <td>0</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>id53_id51_0007.mp4</td>
+      <td>FAKE</td>
+      <td>0</td>
+      <td>treino</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>treino    4570
+teste     1959
+Name: particao, dtype: int64
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--------------------------------------------------
+faceforensics
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>video</th>
+      <th>descricao</th>
+      <th>label</th>
+      <th>particao</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>fs_087_081.mp4</td>
+      <td>FAKE</td>
+      <td>0</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>nt_266_252.mp4</td>
+      <td>FAKE</td>
+      <td>0</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>246.mp4</td>
+      <td>REAL</td>
+      <td>1</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>fs_111_094.mp4</td>
+      <td>FAKE</td>
+      <td>0</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>nt_431_447.mp4</td>
+      <td>FAKE</td>
+      <td>0</td>
+      <td>treino</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>treino    3500
+teste     1500
+Name: particao, dtype: int64
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--------------------------------------------------
+dfdc
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>video</th>
+      <th>descricao</th>
+      <th>label</th>
+      <th>particao</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>bilnggbxgu.mp4</td>
+      <td>REAL</td>
+      <td>1</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>andaxzscny.mp4</td>
+      <td>FAKE</td>
+      <td>0</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>tejfudfgpq.mp4</td>
+      <td>REAL</td>
+      <td>1</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>emfbhytfhc.mp4</td>
+      <td>FAKE</td>
+      <td>0</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>aneclqfpbt.mp4</td>
+      <td>FAKE</td>
+      <td>0</td>
+      <td>treino</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>treino    560
+teste     240
+Name: particao, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">dataframe_faces</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>59208
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lista de faces:</span>
+<span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;celebdf&#39;</span><span class="p">,</span><span class="s1">&#39;faceforensics&#39;</span><span class="p">,</span><span class="s1">&#39;dfdc&#39;</span><span class="p">]:</span>
+<span class="c1">#for dataset in [&#39;celebdf&#39;]:</span>
+    <span class="n">faces_reais</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/processed/dataset_&quot;</span><span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/real_face/*.jpg&quot;</span><span class="p">)</span>
+    <span class="n">faces_fakes</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;../data/processed/dataset_&quot;</span><span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/fake_face/*.jpg&quot;</span><span class="p">)</span>
+    <span class="n">dataframe_faces_reais</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;face&quot;</span><span class="p">:</span> <span class="n">faces_reais</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span> <span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;descricao&quot;</span><span class="p">:</span> <span class="s2">&quot;REAL&quot;</span><span class="p">})</span>
+    <span class="n">dataframe_faces_fakes</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;face&quot;</span><span class="p">:</span> <span class="n">faces_fakes</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span> <span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;descricao&quot;</span><span class="p">:</span> <span class="s2">&quot;FAKE&quot;</span><span class="p">})</span>
+    <span class="n">dataframe_faces</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">dataframe_faces_reais</span><span class="p">,</span> <span class="n">dataframe_faces_fakes</span><span class="p">])</span>
+    <span class="n">dataframe_faces</span><span class="p">[</span><span class="s1">&#39;video&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataframe_faces</span><span class="p">[</span><span class="s1">&#39;face&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">dataframe_faces</span><span class="p">[</span><span class="s1">&#39;video&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataframe_faces</span><span class="p">[</span><span class="s1">&#39;video&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(_[0-9]+.jpg)&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dataframe_faces</span><span class="p">[</span><span class="s1">&#39;video&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">dataframe_faces</span><span class="p">[</span><span class="s1">&#39;video&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span>
+    <span class="n">metadados_video</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/processed/dataset_&quot;</span><span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/metadados_videos.csv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">dataframe_faces</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dataframe_faces</span><span class="p">,</span><span class="n">metadados_video</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;video&#39;</span><span class="p">,</span><span class="s1">&#39;label&#39;</span><span class="p">,</span><span class="s1">&#39;descricao&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span> <span class="p">)</span>
+    <span class="n">dataframe_faces</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;../data/processed/dataset_&quot;</span><span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span><span class="s2">&quot;/metadados_faces.csv&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">dataframe_faces</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">dataframe_faces</span><span class="p">[</span><span class="s1">&#39;particao&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--------------------------------------------------
+celebdf
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>face</th>
+      <th>label</th>
+      <th>descricao</th>
+      <th>video</th>
+      <th>particao</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>../data/processed/dataset_celebdf/real_face/00...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>00001.mp4</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>../data/processed/dataset_celebdf/real_face/00...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>00001.mp4</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>../data/processed/dataset_celebdf/real_face/00...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>00001.mp4</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>../data/processed/dataset_celebdf/real_face/00...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>00001.mp4</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>../data/processed/dataset_celebdf/real_face/00...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>00001.mp4</td>
+      <td>treino</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>treino    41607
+teste     17601
+Name: particao, dtype: int64
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--------------------------------------------------
+faceforensics
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>face</th>
+      <th>label</th>
+      <th>descricao</th>
+      <th>video</th>
+      <th>particao</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>../data/processed/dataset_faceforensics/real_f...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>001.mp4</td>
+      <td>teste</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>../data/processed/dataset_faceforensics/real_f...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>001.mp4</td>
+      <td>teste</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>../data/processed/dataset_faceforensics/real_f...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>001.mp4</td>
+      <td>teste</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>../data/processed/dataset_faceforensics/real_f...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>001.mp4</td>
+      <td>teste</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>../data/processed/dataset_faceforensics/real_f...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>001.mp4</td>
+      <td>teste</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>treino    34928
+teste     15005
+Name: particao, dtype: int64
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--------------------------------------------------
+dfdc
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>face</th>
+      <th>label</th>
+      <th>descricao</th>
+      <th>video</th>
+      <th>particao</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>../data/processed/dataset_dfdc/real_face/aelfn...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>aelfnikyqj.mp4</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>../data/processed/dataset_dfdc/real_face/aelfn...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>aelfnikyqj.mp4</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>../data/processed/dataset_dfdc/real_face/aelfn...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>aelfnikyqj.mp4</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>../data/processed/dataset_dfdc/real_face/aelfn...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>aelfnikyqj.mp4</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>../data/processed/dataset_dfdc/real_face/aelfn...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>aelfnikyqj.mp4</td>
+      <td>treino</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>treino    2558
+teste     1220
+Name: particao, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="dataset-de-misto">
+<h3>Dataset de Misto:<a class="headerlink" href="#dataset-de-misto" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Leitura dos arquivos de metadados de cada dataset</span>
+<span class="n">metadados_celebdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/processed/dataset_celebdf/metadados_faces.csv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">metadados_faceforensics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/processed/dataset_faceforensics/metadados_faces.csv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">metadados_dfdc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/processed/dataset_dfdc/metadados_faces.csv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+<span class="c1"># Junção dos 3 datasets:</span>
+<span class="n">metadados_todos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">metadados_celebdf</span><span class="p">,</span><span class="n">metadados_faceforensics</span><span class="p">,</span><span class="n">metadados_dfdc</span><span class="p">])</span>
+<span class="n">metadados_todos</span> <span class="o">=</span> <span class="n">metadados_todos</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">metadados_todos</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;particao&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">metadados_todos</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(112919, 4)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># amostra:</span>
+<span class="n">metadados_todos</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadados_todos</span><span class="p">[</span><span class="s1">&#39;face&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">metadados_todos</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadados_todos</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;dataset_&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">metadados_todos</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>face</th>
+      <th>label</th>
+      <th>descricao</th>
+      <th>video</th>
+      <th>dataset</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>../data/processed/dataset_celebdf/real_face/00...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>00001.mp4</td>
+      <td>celebdf</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>../data/processed/dataset_celebdf/real_face/00...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>00001.mp4</td>
+      <td>celebdf</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>../data/processed/dataset_celebdf/real_face/00...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>00001.mp4</td>
+      <td>celebdf</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>../data/processed/dataset_celebdf/real_face/00...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>00001.mp4</td>
+      <td>celebdf</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>../data/processed/dataset_celebdf/real_face/00...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>00001.mp4</td>
+      <td>celebdf</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># verificando desbalanceamento</span>
+<span class="n">metadados_todos_videos</span> <span class="o">=</span> <span class="n">metadados_todos</span><span class="p">[[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span><span class="s1">&#39;descricao&#39;</span><span class="p">,</span><span class="s1">&#39;video&#39;</span><span class="p">,</span><span class="s1">&#39;dataset&#39;</span><span class="p">]]</span>
+<span class="n">metadados_todos_videos</span> <span class="o">=</span> <span class="n">metadados_todos_videos</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="n">metadados_todos_videos</span><span class="p">[</span><span class="s1">&#39;descricao&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>FAKE    9525
+REAL    1959
+Name: descricao, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Geração de um dataset balanceado(50% fakes e 50% reais)</span>
+<span class="n">tamanho_reais</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">metadados_todos_videos</span><span class="p">[</span><span class="n">metadados_todos_videos</span><span class="p">[</span><span class="s1">&#39;descricao&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;REAL&#39;</span><span class="p">])</span>
+<span class="n">videos_reais</span> <span class="o">=</span> <span class="n">metadados_todos_videos</span><span class="p">[</span><span class="n">metadados_todos_videos</span><span class="p">[</span><span class="s1">&#39;descricao&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;REAL&#39;</span><span class="p">]</span>
+<span class="n">videos_fakes</span> <span class="o">=</span> <span class="n">metadados_todos_videos</span><span class="p">[</span><span class="n">metadados_todos_videos</span><span class="p">[</span><span class="s1">&#39;descricao&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;FAKE&#39;</span><span class="p">]</span>
+<span class="n">videos_fakes</span> <span class="o">=</span> <span class="n">videos_fakes</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">tamanho_reais</span><span class="p">)</span>
+<span class="n">metadados_dataset_misto</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">videos_fakes</span><span class="p">,</span><span class="n">videos_reais</span><span class="p">])</span>
+<span class="n">metadados_dataset_misto</span> <span class="o">=</span> <span class="n">metadados_dataset_misto</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># verificando balanceamento</span>
+<span class="n">metadados_dataset_misto</span><span class="p">[</span><span class="s1">&#39;descricao&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>FAKE    1959
+REAL    1959
+Name: descricao, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Particionamento treino e teste</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">metadados_dataset_misto</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">metadados_dataset_misto</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+<span class="n">treino</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">treino</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_train</span>
+<span class="n">treino</span><span class="p">[</span><span class="s1">&#39;particao&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;treino&#39;</span>
+<span class="n">teste</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">teste</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_test</span>
+<span class="n">teste</span><span class="p">[</span><span class="s1">&#39;particao&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;teste&#39;</span>
+<span class="n">metadados_id_part</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">treino</span><span class="p">,</span><span class="n">teste</span><span class="p">])</span>
+<span class="n">metadados_id_part</span> <span class="o">=</span> <span class="n">metadados_id_part</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">dataset_misto</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">metadados_todos</span><span class="p">,</span> <span class="n">metadados_id_part</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;descricao&#39;</span><span class="p">,</span><span class="s1">&#39;video&#39;</span><span class="p">,</span><span class="s1">&#39;dataset&#39;</span><span class="p">,</span><span class="s1">&#39;label&#39;</span><span class="p">])</span>
+<span class="n">dataset_misto</span> <span class="o">=</span> <span class="n">dataset_misto</span><span class="p">[</span><span class="n">dataset_misto</span><span class="p">[</span><span class="s1">&#39;particao&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">==</span><span class="kc">False</span><span class="p">]</span>
+<span class="n">dataset_misto</span> <span class="o">=</span> <span class="n">dataset_misto</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">dataset_misto</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;../data/processed/dataset_misto/metadados_faces.csv&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">dataset_misto</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>face</th>
+      <th>label</th>
+      <th>descricao</th>
+      <th>video</th>
+      <th>dataset</th>
+      <th>particao</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>../data/processed/dataset_faceforensics/real_f...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>878.mp4</td>
+      <td>faceforensics</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>../data/processed/dataset_faceforensics/real_f...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>459.mp4</td>
+      <td>faceforensics</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>../data/processed/dataset_faceforensics/real_f...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>055.mp4</td>
+      <td>faceforensics</td>
+      <td>treino</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>../data/processed/dataset_celebdf/real_face/id...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>id13_0009.mp4</td>
+      <td>celebdf</td>
+      <td>teste</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>../data/processed/dataset_celebdf/real_face/id...</td>
+      <td>1</td>
+      <td>REAL</td>
+      <td>id8_0009.mp4</td>
+      <td>celebdf</td>
+      <td>treino</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="0_EDA.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Análise Exploratória</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2_MESO.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Modelo MesoNet</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">Datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#captura-de-frames">Captura de frames</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteccao-de-faces">Detecção de faces</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regiao-de-interesse">Região de interesse</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcao-para-aplicar-a-todos-os-videos">Função para aplicar a todos os videos:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#divisao-treino-e-teste">Divisão Treino e Teste</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-de-misto">Dataset de Misto:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Diego Abreu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Diego Abreu.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -8,7 +8,7 @@ cp -r notebooks docs/notebooks/
 cp -r references docs/
 cd docs 
 ## Geração de documentação PDF:
-make latexpdf LATEXMKOPTS="-silent"
+#make latexpdf LATEXMKOPTS="-silent"
 ## Geração de documentação HTML:
 make html
 ## Remoção de arquivos:
