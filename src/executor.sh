@@ -11,6 +11,7 @@ cd docs
 #make latexpdf LATEXMKOPTS="-silent"
 ## Geração de documentação HTML:
 make html
+cp -r docs/_build/html docs
 ## Remoção de arquivos:
 cd ..
 rm -rf docs/notebooks
