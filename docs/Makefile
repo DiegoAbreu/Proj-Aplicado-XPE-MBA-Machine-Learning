@@ -6,7 +6,6 @@
 #SPHINXBUILD   = sphinx-build
 #PAPER         =
 #BUILDDIR      = _build
-
 # Minimal makefile for Sphinx documentation
 #
 
@@ -28,8 +27,7 @@ help:
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-
-
+	
 # Internal variables.
 PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
