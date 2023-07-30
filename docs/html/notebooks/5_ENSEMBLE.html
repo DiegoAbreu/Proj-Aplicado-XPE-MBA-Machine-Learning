@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Ensemble &#8212; Projeto Aplicado XPE - MBA em Machine Learning</title>
+    <title>Modelo Combinado (Ensemble) &#8212; Projeto Aplicado XPE - MBA em Machine Learning</title>
   
   
   
@@ -131,7 +131,7 @@
 <li class="toctree-l1"><a class="reference internal" href="2_MESO.html">Modelo MesoNet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3_DECOMPOSICAO_DE_ESPECTRO.html">Decomposição de Espectro</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4_EFFICIENTNET-V2.html">EfficientNET</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Ensemble</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Modelo Combinado (Ensemble)</a></li>
 </ul>
 
     </div>
@@ -255,7 +255,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -266,11 +268,25 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Ensemble</h1>
+    <h1>Modelo Combinado (Ensemble)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo">Modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teste-do-modelo">Teste do modelo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-celebdf">Dataset CELEBDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-faceforensics">Dataset Faceforensics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-dfdc">Dataset DFDC</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -280,12 +296,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="ensemble">
-<h1>Ensemble<a class="headerlink" href="#ensemble" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="modelo-combinado-ensemble">
+<h1>Modelo Combinado (Ensemble)<a class="headerlink" href="#modelo-combinado-ensemble" title="Permalink to this heading">#</a></h1>
+<section id="modelo">
+<h2>Modelo<a class="headerlink" href="#modelo" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mlflow</span>
-<span class="kn">from</span> <span class="nn">mlflow.models.signature</span> <span class="kn">import</span> <span class="n">infer_signature</span>
 <span class="n">mlflow</span><span class="o">.</span><span class="n">set_experiment</span><span class="p">(</span><span class="s1">&#39;Projeto Aplicado XPE - Detector de Deep Fake&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -494,19 +511,18 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<hr class="docutils" />
+<section id="teste-do-modelo">
+<h2>Teste do modelo<a class="headerlink" href="#teste-do-modelo" title="Permalink to this heading">#</a></h2>
+<section id="dataset-celebdf">
+<h3>Dataset CELEBDF<a class="headerlink" href="#dataset-celebdf" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dataframe</span>
 <span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;celebdf&#39;</span>
 <span class="n">dataframe_faces</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/processed/dataset_&#39;</span><span class="o">+</span><span class="n">dataset</span><span class="o">+</span><span class="s1">&#39;/metadados_faces.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
 <span class="n">dataframe_faces_teste</span> <span class="o">=</span> <span class="n">dataframe_faces</span><span class="p">[</span><span class="n">dataframe_faces</span><span class="p">[</span><span class="s1">&#39;particao&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;teste&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 </pre></div>
 </div>
 </div>
@@ -668,7 +684,9 @@ document.write(`
 </div>
 </div>
 </div>
-<p>faceforensics</p>
+</section>
+<section id="dataset-faceforensics">
+<h3>Dataset Faceforensics<a class="headerlink" href="#dataset-faceforensics" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dataframe</span>
@@ -724,7 +742,9 @@ document.write(`
 </div>
 </div>
 </div>
-<p>dfdc</p>
+</section>
+<section id="dataset-dfdc">
+<h3>Dataset DFDC<a class="headerlink" href="#dataset-dfdc" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dataframe</span>
@@ -740,1230 +760,6 @@ document.write(`
     <span class="n">teste_ensemble_label</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pred</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">())</span>
     <span class="n">teste_ensemble_proba</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pred</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">path_interim</span><span class="p">)</span> 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
-Found 1 images belonging to 1 classes.
 </pre></div>
 </div>
 </div>
@@ -2005,6 +801,8 @@ Found 1 images belonging to 1 classes.
 </div>
 </div>
 </section>
+</section>
+</section>
 
 
                 </article>
@@ -2036,6 +834,26 @@ Found 1 images belonging to 1 classes.
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo">Modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teste-do-modelo">Teste do modelo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-celebdf">Dataset CELEBDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-faceforensics">Dataset Faceforensics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-dfdc">Dataset DFDC</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

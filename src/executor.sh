@@ -11,11 +11,12 @@ cd docs
 #make latexpdf LATEXMKOPTS="-silent"
 ## Geração de documentação HTML:
 make html
-#cp -r docs/_build/html docs/
-## Remoção de arquivos:
+## Remoção de arquivos desnecessários:
 cd ..
 rm -rf docs/notebooks
 rm -rf docs/references
+cp -r docs/_build/html docs/
+rm -rf docs/_build
 ## Desativação de ambiente virtual
 deactivate
 ## Mensagem de finalização de processamento:
