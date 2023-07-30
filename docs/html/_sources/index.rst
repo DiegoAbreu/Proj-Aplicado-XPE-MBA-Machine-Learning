@@ -15,3 +15,4 @@ Documentação - Projeto Aplicado XPE - MBA em Machine Learning
    notebooks/4_DECOMPOSICAO_DE_ESPECTRO
    notebooks/5_EFFICIENTNET-V2
    notebooks/6_ENSEMBLE
+   notebooks/7_APLICACAO
