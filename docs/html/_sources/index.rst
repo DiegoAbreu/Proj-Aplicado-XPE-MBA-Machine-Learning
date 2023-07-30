@@ -3,11 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Documentação - Projeto Aplicado XPE - MBA em Machine Learning
+Projeto Aplicado XPE - MBA em Machine Learning
 =============================================================
 .. toctree::
    :maxdepth: 1
-   :caption: Sumário:
+   :caption: Documentação:
 
    notebooks/1_EDA
    notebooks/2_PRE_PROCESSAMENTO

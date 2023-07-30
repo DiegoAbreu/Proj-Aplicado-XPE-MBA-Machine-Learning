@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="pt-BR" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>7. Aplicação &#8212; Projeto Aplicado XPE - MBA em Machine Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/7_APLICACAO';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="6. Modelo Combinado (Ensemble)" href="6_ENSEMBLE.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="pt-BR"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Projeto Aplicado XPE - MBA em Machine Learning</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentação:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1_EDA.html">1. Análise Exploratória</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_PRE_PROCESSAMENTO.html">2. Análise Exploratória e Pré-processamento</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_MESO.html">3. Modelo MesoNet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_DECOMPOSICAO_DE_ESPECTRO.html">4. Decomposição de Espectro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_EFFICIENTNET-V2.html">5. EfficientNET</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_ENSEMBLE.html">6. Modelo Combinado (Ensemble)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Aplicação</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/7_APLICACAO.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>7. Aplicação</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-utilizadas">Funções utilizadas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#streamlit">Streamlit</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="aplicacao">
+<h1>7. Aplicação<a class="headerlink" href="#aplicacao" title="Permalink to this heading">#</a></h1>
+<section id="funcoes-utilizadas">
+<h2>Funções utilizadas<a class="headerlink" href="#funcoes-utilizadas" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Funções utilizadas</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="c1"># Salva vídeo</span>
+<span class="k">def</span> <span class="nf">save_uploaded_video</span><span class="p">(</span><span class="n">uploadedfile</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data/external/&quot;</span><span class="p">,</span><span class="s2">&quot;video_upload.mp4&quot;</span><span class="p">),</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">uploadedfile</span><span class="o">.</span><span class="n">getbuffer</span><span class="p">())</span>
+
+<span class="c1"># Caminho do vídeo</span>
+<span class="k">def</span> <span class="nf">caminho_video</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/external/*.mp4&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Visualiza vídeo</span>
+<span class="k">def</span> <span class="nf">play_video</span><span class="p">():</span>
+    <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/external/*.mp4&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+
+<span class="c1"># Caminho das faces</span>
+<span class="k">def</span> <span class="nf">caminho_faces</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/interim/faces/*.jpg&#39;</span><span class="p">)</span>
+
+<span class="c1"># Exclusão de arquivos importados</span>
+<span class="k">def</span> <span class="nf">limpar</span><span class="p">():</span>
+    <span class="n">filelist</span> <span class="o">=</span> <span class="p">[</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;data/external/&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.mp4&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.mpg4&quot;</span><span class="p">))]</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filelist</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data/external/&#39;</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+    <span class="n">filelist</span> <span class="o">=</span> <span class="p">[</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;data/interim/faces/&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.jpg&quot;</span><span class="p">))]</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filelist</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data/interim/faces/&#39;</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+    <span class="n">filelist</span> <span class="o">=</span> <span class="p">[</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;data/interim/&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.gif&quot;</span><span class="p">))]</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filelist</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data/interim/&#39;</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+
+<span class="c1"># Captura de face:</span>
+<span class="n">face_cascade</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CascadeClassifier</span><span class="p">(</span><span class="s1">&#39;src/features/haarcascades/haarcascade_frontalface_default.xml&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">ROI</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="mi">30</span> 
+    <span class="n">face_img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">face_rects</span> <span class="o">=</span> <span class="n">face_cascade</span><span class="o">.</span><span class="n">detectMultiScale</span><span class="p">(</span><span class="n">face_img</span><span class="p">,</span><span class="n">scaleFactor</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">minNeighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">)</span> <span class="ow">in</span> <span class="n">face_rects</span><span class="p">:</span> 
+        <span class="n">roi</span> <span class="o">=</span> <span class="n">face_img</span><span class="p">[</span><span class="n">y</span><span class="o">-</span><span class="n">offset</span><span class="p">:</span><span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="o">+</span><span class="n">offset</span><span class="p">,</span><span class="n">x</span><span class="o">-</span><span class="n">offset</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="o">+</span><span class="n">offset</span><span class="p">]</span> 
+    <span class="k">return</span> <span class="n">roi</span>
+
+<span class="k">def</span> <span class="nf">save_faces</span><span class="p">(</span><span class="n">arquivo_video</span><span class="p">):</span>
+    <span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">arquivo_video</span><span class="p">)</span>
+    <span class="n">ret</span><span class="p">,</span><span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">while</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_POS_MSEC</span><span class="p">,(</span><span class="n">count</span><span class="o">*</span><span class="mi">1000</span><span class="p">))</span>   
+            <span class="n">ret</span><span class="p">,</span><span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">image0</span> <span class="o">=</span> <span class="n">frame</span>
+            <span class="n">image0</span> <span class="o">=</span> <span class="n">ROI</span><span class="p">(</span><span class="n">image0</span><span class="p">)</span>
+            <span class="n">arquivo</span> <span class="o">=</span> <span class="n">arquivo_video</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;data/external&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.mp4&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">arquivo_nome</span> <span class="o">=</span> <span class="s2">&quot;data/interim/faces/&quot;</span><span class="o">+</span> <span class="n">arquivo</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.jpg&quot;</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">arquivo_nome</span><span class="p">,</span><span class="n">image0</span><span class="p">)</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">gera_gif</span><span class="p">():</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="p">[</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/interim/faces/*jpg&#39;</span><span class="p">)]</span>
+    <span class="n">frame_one</span> <span class="o">=</span> <span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">frame_one</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;data/interim/analise.gif&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;GIF&quot;</span><span class="p">,</span> <span class="n">append_images</span><span class="o">=</span><span class="n">frames</span><span class="p">,</span>
+               <span class="n">save_all</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="streamlit">
+<h2>Streamlit<a class="headerlink" href="#streamlit" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Aplicação Streamlit</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">streamlit</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="n">path_funcoes</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;src/app&quot;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path_funcoes</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">funcoes</span>
+<span class="n">path_modelo</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;src/models&quot;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path_modelo</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">modelo_final</span>
+
+<span class="c1"># configuracao da página</span>
+<span class="n">st</span><span class="o">.</span><span class="n">set_page_config</span><span class="p">(</span><span class="n">page_title</span><span class="o">=</span><span class="s1">&#39;Detector de DeepFakes&#39;</span><span class="p">,</span> <span class="n">page_icon</span><span class="o">=</span><span class="s1">&#39;🔍️&#39;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;wide&quot;</span><span class="p">,</span> 
+                   <span class="n">initial_sidebar_state</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">menu_items</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="sd">&quot;&quot;&quot; # Detector de DeepFake&quot;&quot;&quot;</span>
+<span class="n">tab1</span><span class="p">,</span> <span class="n">tab2</span><span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">tabs</span><span class="p">([</span><span class="s2">&quot;Aplicação&quot;</span><span class="p">,</span> <span class="s2">&quot;Sobre&quot;</span><span class="p">])</span>
+<span class="k">with</span> <span class="n">tab1</span><span class="p">:</span>
+  <span class="k">if</span> <span class="n">st</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;Nova análise&quot;</span><span class="p">):</span> 
+    <span class="n">funcoes</span><span class="o">.</span><span class="n">limpar</span><span class="p">()</span>
+    <span class="n">uploaded_video</span> <span class="o">=</span> <span class="kc">None</span>
+  <span class="c1">## Caixa de Upload</span>
+  <span class="k">with</span> <span class="n">st</span><span class="o">.</span><span class="n">form</span><span class="p">(</span><span class="s2">&quot;caixa_upload&quot;</span><span class="p">,</span> <span class="n">clear_on_submit</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">uploaded_video</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">file_uploader</span><span class="p">(</span><span class="s2">&quot;Faça o upload de um vídeo em .mp4&quot;</span><span class="p">,</span> <span class="n">accept_multiple_files</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">upcol1</span><span class="p">,</span><span class="n">upcol2</span><span class="p">,</span><span class="n">upcol3</span><span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">columns</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">with</span> <span class="n">upcol1</span><span class="p">:</span>
+      <span class="n">botao_enviar</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">form_submit_button</span><span class="p">(</span><span class="s2">&quot;Enviar vídeo e analisar.&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">upcol3</span><span class="p">:</span>
+<span class="w">       </span><span class="sd">&quot;&quot;&quot;\n&quot;&quot;&quot;</span>
+       <span class="n">st</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Exemplos para testes :  [  🎥](https://drive.google.com/drive/folders/1g2j6IwiFAexctpHRCXyRjkLHb-lXUHPL?usp=sharing)&quot;</span><span class="p">)</span>
+       
+    <span class="k">if</span> <span class="n">botao_enviar</span> <span class="ow">and</span> <span class="n">uploaded_video</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">uploaded_video</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;mp4&#39;</span> <span class="ow">or</span> <span class="n">uploaded_video</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;mpg4&#39;</span><span class="p">:</span>
+        <span class="n">funcoes</span><span class="o">.</span><span class="n">save_uploaded_video</span><span class="p">(</span><span class="n">uploaded_video</span><span class="p">)</span>
+
+  <span class="n">total_arquivos_mp4</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;data/external/*.mp4&quot;</span><span class="p">))</span>
+  <span class="k">if</span> <span class="n">total_arquivos_mp4</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">uploaded_video</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;mp4&#39;</span> <span class="ow">or</span> <span class="n">uploaded_video</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;mpg4&#39;</span><span class="p">:</span>
+        <span class="n">funcoes</span><span class="o">.</span><span class="n">save_uploaded_video</span><span class="p">(</span><span class="n">uploaded_video</span><span class="p">)</span>
+        <span class="n">video_file</span> <span class="o">=</span> <span class="n">funcoes</span><span class="o">.</span><span class="n">play_video</span><span class="p">()</span>
+        <span class="n">video_bytes</span> <span class="o">=</span> <span class="n">video_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">st</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Upload concluído.&quot;</span><span class="p">)</span>
+        <span class="n">st</span><span class="o">.</span><span class="n">video</span><span class="p">(</span><span class="n">video_bytes</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; *** &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; ### Análise de Frames: &quot;&quot;&quot;</span>
+        <span class="n">funcoes</span><span class="o">.</span><span class="n">save_faces</span><span class="p">(</span><span class="n">funcoes</span><span class="o">.</span><span class="n">caminho_video</span><span class="p">())</span>
+        <span class="n">analise</span> <span class="o">=</span> <span class="n">modelo_final</span><span class="o">.</span><span class="n">roda_modelo</span><span class="p">()</span>
+        <span class="n">frames</span> <span class="o">=</span> <span class="n">analise</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">real</span> <span class="o">=</span> <span class="n">analise</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">fake</span> <span class="o">=</span> <span class="n">analise</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">final_real</span> <span class="o">=</span> <span class="n">analise</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">final_fake</span> <span class="o">=</span> <span class="n">analise</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">uploaded_video</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">faces_list</span> <span class="o">=</span> <span class="n">funcoes</span><span class="o">.</span><span class="n">caminho_faces</span><span class="p">()</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span> 
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">faces_list</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span> 
+            <span class="n">cols</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">columns</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> 
+            
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">faces_list</span><span class="p">):</span> 
+                <span class="n">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">faces_list</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;_REAL_:&quot;&quot;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)),</span><span class="s2">&quot;&quot;&quot;_FAKE_:&quot;&quot;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">fake</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))))</span>
+            <span class="n">idx</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">faces_list</span><span class="p">):</span>
+                <span class="n">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">faces_list</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;_REAL_:&quot;&quot;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)),</span><span class="s2">&quot;&quot;&quot;_FAKE_:&quot;&quot;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">fake</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))))</span>
+            <span class="n">idx</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">faces_list</span><span class="p">):</span>
+                <span class="n">cols</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">faces_list</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;_REAL_:&quot;&quot;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)),</span><span class="s2">&quot;&quot;&quot;_FAKE_:&quot;&quot;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">fake</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))))</span>
+            <span class="n">idx</span><span class="o">+=</span><span class="mi">1</span> 
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">faces_list</span><span class="p">):</span> 
+                <span class="n">cols</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">faces_list</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;_REAL_:&quot;&quot;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)),</span><span class="s2">&quot;&quot;&quot;_FAKE_:&quot;&quot;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">fake</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))))</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">faces_list</span><span class="p">):</span> 
+              <span class="n">cols</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">faces_list</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;_REAL_:&quot;&quot;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)),</span><span class="s2">&quot;&quot;&quot;_FAKE_: &quot;&quot;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">fake</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))))</span>
+              <span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; *** &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; ### Resultado Final: &quot;&quot;&quot;</span>
+        <span class="n">funcoes</span><span class="o">.</span><span class="n">gera_gif</span><span class="p">()</span>
+        <span class="n">col1</span><span class="p">,</span><span class="n">col2</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">columns</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">col1</span><span class="p">:</span>
+          <span class="n">st</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="s1">&#39;data/interim/analise.gif&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">col2</span><span class="p">:</span>
+<span class="w">          </span><span class="sd">&quot;&quot;&quot;\n&quot;&quot;&quot;</span>   
+<span class="w">          </span><span class="sd">&quot;&quot;&quot;\n&quot;&quot;&quot;</span>   
+<span class="w">          </span><span class="sd">&quot;&quot;&quot;\n&quot;&quot;&quot;</span>   
+<span class="w">          </span><span class="sd">&quot;&quot;&quot;\n&quot;&quot;&quot;</span>   
+          <span class="c1">#final_real = 5</span>
+          <span class="c1">#final_fake = 10</span>
+          <span class="n">subcol1</span><span class="p">,</span><span class="n">subcol2</span><span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">columns</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+          <span class="k">if</span> <span class="n">final_real</span> <span class="o">&gt;</span> <span class="n">final_fake</span><span class="p">:</span>
+              <span class="k">with</span> <span class="n">subcol1</span><span class="p">:</span>
+                <span class="n">st</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="s1">&#39;references/images/resultado_real.png&#39;</span><span class="p">)</span>
+              <span class="k">with</span> <span class="n">subcol2</span><span class="p">:</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;\n&quot;&quot;&quot;</span> 
+<span class="w">                </span><span class="sd">&quot;&quot;&quot; #### REAL&quot;&quot;&quot;</span>
+          <span class="k">elif</span> <span class="n">final_real</span> <span class="o">==</span> <span class="n">final_fake</span><span class="p">:</span>
+<span class="w">              </span><span class="sd">&quot;&quot;&quot; #### INCONCLUSIVO &quot;&quot;&quot;</span>
+          <span class="k">else</span><span class="p">:</span>
+              <span class="k">with</span> <span class="n">subcol1</span><span class="p">:</span>
+                <span class="n">st</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="s1">&#39;references/images/resultado_fake.png&#39;</span><span class="p">)</span>
+              <span class="k">with</span> <span class="n">subcol2</span><span class="p">:</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;\n&quot;&quot;&quot;</span> 
+<span class="w">                </span><span class="sd">&quot;&quot;&quot; #### DEEP FAKE &quot;&quot;&quot;</span>
+<span class="w">          </span><span class="sd">&quot;&quot;&quot;\n&quot;&quot;&quot;</span>   
+          <span class="n">st</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Probabilidade de ser Real: &quot;</span><span class="p">,</span><span class="nb">round</span><span class="p">((</span><span class="n">final_real</span><span class="o">*</span><span class="mi">100</span><span class="p">),</span><span class="mi">4</span><span class="p">))</span>
+          <span class="n">st</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Probabilidade de ser um Deep Fake: &quot;</span><span class="p">,</span><span class="nb">round</span><span class="p">((</span><span class="n">final_fake</span><span class="o">*</span><span class="mi">100</span><span class="p">),</span><span class="mi">4</span><span class="p">))</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">st</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Arquivo não compatível. Por favor refaça o upload de um arquivo de vídeo em .mp4.&#39;</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+       <span class="n">st</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Arquivo não compatível. Por favor refaça o upload de um arquivo de vídeo em .mp4.&#39;</span><span class="p">)</span>
+       
+<span class="k">with</span> <span class="n">tab2</span><span class="p">:</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Projeto de conclusão do curso MBA em Machine Learning da [:green[XPE]](https://www.xpeducacao.com.br/).</span>
+<span class="sd">  \n - Autor: [:green[Diego Abreu]](https://www.linkedin.com/in/diego-s-abreu/)</span>
+<span class="sd">  \n- Repositório: [:green[Github]](https://github.com/DiegoAbreu/Proj-Aplicado-XPE-MBA-Machine-Learning)&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="6_ENSEMBLE.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">6. Modelo Combinado (Ensemble)</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-utilizadas">Funções utilizadas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#streamlit">Streamlit</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Diego Abreu
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Diego Abreu.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
