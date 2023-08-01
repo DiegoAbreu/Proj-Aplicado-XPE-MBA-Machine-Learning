@@ -145,4 +145,5 @@ O modelo pode ser utilizado através de uma [aplicação Web](https://proj-xpe-m
 
 Além disso, também é exibido o percentual da probabilidade de ser real e de ser um deepfake.
 ![image](./references/images/gif_ok.gif) 
+
 ![image](./references/images/gif_fake.gif)
