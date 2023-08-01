@@ -13,7 +13,7 @@ Para se atingir o nosso objetivo final, o desenvolvimento seguiu as seguintes et
 ## Links do projeto:
 - [Relatório de desenvolvimento](https://docs.google.com/document/d/121q5iUjxGZYf_wPszxAFFLOF-IOd-j_U/edit?usp=sharing&ouid=111703326062511304035&rtpof=true&sd=true)
 - [Canvas do Projeto utilizando Design Thinking](https://docs.google.com/presentation/d/1MXR_RvKd_a8XSEN5KG-OVLfeyai6UuFT/edit?usp=sharing&ouid=111703326062511304035&rtpof=true&sd=true)
-- [Documentação interativa](https://diegoabreu.github.io/Proj-Aplicado-XPE-MBA-Machine-Learning)
+- [Documentação do projeto](https://diegoabreu.github.io/Proj-Aplicado-XPE-MBA-Machine-Learning)
 - [Aplicação Web (solução)](https://proj-xpe-mba-machine-learning-diego-abreu.streamlit.app)
 
 ***
@@ -145,5 +145,4 @@ O modelo pode ser utilizado através de uma [aplicação Web](https://proj-xpe-m
 
 Além disso, também é exibido o percentual da probabilidade de ser real e de ser um deepfake.
 ![image](./references/images/gif_ok.gif) 
-
 ![image](./references/images/gif_fake.gif)
