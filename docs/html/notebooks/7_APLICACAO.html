@@ -126,8 +126,9 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentação:</span></p>
 <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0_INTRODUCAO.html">Introdução ao Projeto</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1_EDA.html">1. Análise Exploratória</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2_PRE_PROCESSAMENTO.html">2. Análise Exploratória e Pré-processamento</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_PRE_PROCESSAMENTO.html">2. Pré-processamento</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3_MESO.html">3. Modelo MesoNet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4_DECOMPOSICAO_DE_ESPECTRO.html">4. Decomposição de Espectro</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5_EFFICIENTNET-V2.html">5. EfficientNET</a></li>
@@ -280,7 +281,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-utilizadas">Funções utilizadas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#streamlit">Streamlit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#codigo-streamlit">Código Streamlit</a></li>
 </ul>
             </nav>
         </div>
@@ -294,6 +295,12 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="aplicacao">
 <h1>7. Aplicação<a class="headerlink" href="#aplicacao" title="Permalink to this heading">#</a></h1>
+<p>Para tornar a solução acessível, foi utilizado o framework Streamlit para criar o front-end e o serviço de nuvem do próprio Streamlit para hospedar a aplicação.</p>
+<p>Nessa atividade foi necessário criar o código da aplicação e configurar o acesso do seviço em nuvem direto ao repositório do github. Dessa forma temos uma esteira de CI/CD no projeto. Assim que uma alteração é liberada e publicada no github, a aplicação no Streamlit é atualizada.</p>
+<p>A aplicação com o nosso modelo combinado pode ser acessada no link:</p>
+<ul class="simple">
+<li><p>https://proj-xpe-mba-machine-learning-diego-abreu.streamlit.app/</p></li>
+</ul>
 <section id="funcoes-utilizadas">
 <h2>Funções utilizadas<a class="headerlink" href="#funcoes-utilizadas" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -305,24 +312,19 @@ document.write(`
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
-
 <span class="c1"># Salva vídeo</span>
 <span class="k">def</span> <span class="nf">save_uploaded_video</span><span class="p">(</span><span class="n">uploadedfile</span><span class="p">):</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;data/external/&quot;</span><span class="p">,</span><span class="s2">&quot;video_upload.mp4&quot;</span><span class="p">),</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">uploadedfile</span><span class="o">.</span><span class="n">getbuffer</span><span class="p">())</span>
-
 <span class="c1"># Caminho do vídeo</span>
 <span class="k">def</span> <span class="nf">caminho_video</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/external/*.mp4&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-
 <span class="c1"># Visualiza vídeo</span>
 <span class="k">def</span> <span class="nf">play_video</span><span class="p">():</span>
     <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/external/*.mp4&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
-
 <span class="c1"># Caminho das faces</span>
 <span class="k">def</span> <span class="nf">caminho_faces</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/interim/faces/*.jpg&#39;</span><span class="p">)</span>
-
 <span class="c1"># Exclusão de arquivos importados</span>
 <span class="k">def</span> <span class="nf">limpar</span><span class="p">():</span>
     <span class="n">filelist</span> <span class="o">=</span> <span class="p">[</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;data/external/&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.mp4&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.mpg4&quot;</span><span class="p">))]</span>
@@ -334,10 +336,8 @@ document.write(`
     <span class="n">filelist</span> <span class="o">=</span> <span class="p">[</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;data/interim/&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.gif&quot;</span><span class="p">))]</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filelist</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data/interim/&#39;</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
-
 <span class="c1"># Captura de face:</span>
 <span class="n">face_cascade</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CascadeClassifier</span><span class="p">(</span><span class="s1">&#39;src/features/haarcascades/haarcascade_frontalface_default.xml&#39;</span><span class="p">)</span>
-
 <span class="k">def</span> <span class="nf">ROI</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
     <span class="n">offset</span> <span class="o">=</span> <span class="mi">30</span> 
     <span class="n">face_img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -345,7 +345,6 @@ document.write(`
     <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">)</span> <span class="ow">in</span> <span class="n">face_rects</span><span class="p">:</span> 
         <span class="n">roi</span> <span class="o">=</span> <span class="n">face_img</span><span class="p">[</span><span class="n">y</span><span class="o">-</span><span class="n">offset</span><span class="p">:</span><span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="o">+</span><span class="n">offset</span><span class="p">,</span><span class="n">x</span><span class="o">-</span><span class="n">offset</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="o">+</span><span class="n">offset</span><span class="p">]</span> 
     <span class="k">return</span> <span class="n">roi</span>
-
 <span class="k">def</span> <span class="nf">save_faces</span><span class="p">(</span><span class="n">arquivo_video</span><span class="p">):</span>
     <span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">arquivo_video</span><span class="p">)</span>
     <span class="n">ret</span><span class="p">,</span><span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
@@ -362,8 +361,6 @@ document.write(`
             <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="k">except</span><span class="p">:</span>
         <span class="k">pass</span>
-
-
 <span class="k">def</span> <span class="nf">gera_gif</span><span class="p">():</span>
     <span class="n">frames</span> <span class="o">=</span> <span class="p">[</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/interim/faces/*jpg&#39;</span><span class="p">)]</span>
     <span class="n">frame_one</span> <span class="o">=</span> <span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -374,8 +371,8 @@ document.write(`
 </div>
 </div>
 </section>
-<section id="streamlit">
-<h2>Streamlit<a class="headerlink" href="#streamlit" title="Permalink to this heading">#</a></h2>
+<section id="codigo-streamlit">
+<h2>Código Streamlit<a class="headerlink" href="#codigo-streamlit" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Aplicação Streamlit</span>
@@ -408,12 +405,10 @@ document.write(`
       <span class="n">botao_enviar</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">form_submit_button</span><span class="p">(</span><span class="s2">&quot;Enviar vídeo e analisar.&quot;</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">upcol3</span><span class="p">:</span>
 <span class="w">       </span><span class="sd">&quot;&quot;&quot;\n&quot;&quot;&quot;</span>
-       <span class="n">st</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Exemplos para testes :  [  🎥](https://drive.google.com/drive/folders/1g2j6IwiFAexctpHRCXyRjkLHb-lXUHPL?usp=sharing)&quot;</span><span class="p">)</span>
-       
+       <span class="n">st</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Exemplos para testes :  [  🎥](https://drive.google.com/drive/folders/1g2j6IwiFAexctpHRCXyRjkLHb-lXUHPL?usp=sharing)&quot;</span><span class="p">)</span>     
     <span class="k">if</span> <span class="n">botao_enviar</span> <span class="ow">and</span> <span class="n">uploaded_video</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">uploaded_video</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;mp4&#39;</span> <span class="ow">or</span> <span class="n">uploaded_video</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;mpg4&#39;</span><span class="p">:</span>
         <span class="n">funcoes</span><span class="o">.</span><span class="n">save_uploaded_video</span><span class="p">(</span><span class="n">uploaded_video</span><span class="p">)</span>
-
   <span class="n">total_arquivos_mp4</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;data/external/*.mp4&quot;</span><span class="p">))</span>
   <span class="k">if</span> <span class="n">total_arquivos_mp4</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
@@ -436,8 +431,7 @@ document.write(`
         <span class="n">faces_list</span> <span class="o">=</span> <span class="n">funcoes</span><span class="o">.</span><span class="n">caminho_faces</span><span class="p">()</span>
         <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span> 
         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">faces_list</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span> 
-            <span class="n">cols</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">columns</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> 
-            
+            <span class="n">cols</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">columns</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>     
             <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">faces_list</span><span class="p">):</span> 
                 <span class="n">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">faces_list</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;_REAL_:&quot;&quot;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">real</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)),</span><span class="s2">&quot;&quot;&quot;_FAKE_:&quot;&quot;&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">fake</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))))</span>
             <span class="n">idx</span><span class="o">+=</span><span class="mi">1</span>
@@ -542,7 +536,7 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-utilizadas">Funções utilizadas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#streamlit">Streamlit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#codigo-streamlit">Código Streamlit</a></li>
 </ul>
   </nav></div>
 

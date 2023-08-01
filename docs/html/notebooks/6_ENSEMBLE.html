@@ -44,6 +44,8 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/6_ENSEMBLE';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -127,8 +129,9 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentação:</span></p>
 <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0_INTRODUCAO.html">Introdução ao Projeto</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1_EDA.html">1. Análise Exploratória</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2_PRE_PROCESSAMENTO.html">2. Análise Exploratória e Pré-processamento</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_PRE_PROCESSAMENTO.html">2. Pré-processamento</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3_MESO.html">3. Modelo MesoNet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4_DECOMPOSICAO_DE_ESPECTRO.html">4. Decomposição de Espectro</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5_EFFICIENTNET-V2.html">5. EfficientNET</a></li>
@@ -300,19 +303,23 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="modelo-combinado-ensemble">
 <h1>6. Modelo Combinado (Ensemble)<a class="headerlink" href="#modelo-combinado-ensemble" title="Permalink to this heading">#</a></h1>
+<p>Nessa etapa combinamos os melhores modelos. No caso como não foi possível fazer um treinamento com a base mista, excluí dessa combinação o modelo EfficientNetV2 visto que nos teste ele não generalizou e preveu todos como “fake”, errando assim todos os vídeos reais.</p>
+<p>Dessa forma o nosso “Ensemble” contará com o modelo Mesonet e o melhor modelo de decomposição de espectro. Como o modelo de decomposição é composto de duas etapas, decomposição da imagem em um array e classificação com um modelo tradicional (Regressão logística ou SVM), tínhamos algumas variações para comparar. Optei pelo modelo que utiliza um SVM com os parametros (SVC(C=6.37, kernel=’rbf’, gamma=0.86)) que obteve os melhores resultados.</p>
+<p>A combinação foi feita através de uma função que roda os dois modelos, captura as predições e calcula aplicando como peso a média das acurácias que obtivemos nos testes anteriores.</p>
+<p>Esse cálculo é aplicado para cada predição (face extraída do vídeo), e o resultado final é a média.
+A combinação foi feita através de uma função que roda os dois modelos, captura as predições e calcula aplicando como peso a média das acurácias que obtivemos nos testes anteriores.</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Prob.Deepfake} = \frac{{(\text{prob.model1} \times \text{peso1}) + (\text{prob.model2} \times \text{peso2})}}{{\text{peso1} + \text{peso2}}}
+\]</div>
+<p>Esse cálculo é aplicado para cada predição (face extraída do vídeo), e o resultado final é a média de todas as predições.</p>
 <section id="modelo">
 <h2>Modelo<a class="headerlink" href="#modelo" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mlflow</span>
 <span class="n">mlflow</span><span class="o">.</span><span class="n">set_experiment</span><span class="p">(</span><span class="s1">&#39;Projeto Aplicado XPE - Detector de Deep Fake&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">MaxPooling2D</span><span class="p">,</span> <span class="n">BatchNormalization</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Reshape</span><span class="p">,</span> <span class="n">Concatenate</span><span class="p">,</span> <span class="n">LeakyReLU</span>
@@ -325,6 +332,10 @@ document.write(`
 <span class="kn">import</span> <span class="nn">cv2</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">roc_auc_score</span>
 
 <span class="c1"># Tamanho a imagem e canais</span>
 <span class="n">image_dimensions</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;height&#39;</span><span class="p">:</span><span class="mi">256</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">:</span><span class="mi">256</span><span class="p">,</span> <span class="s1">&#39;channels&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
@@ -386,11 +397,8 @@ document.write(`
 <span class="n">meso</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;../src/models/Meso4_DF.h5&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">modelo_meso4</span><span class="p">():</span>
-    <span class="c1"># Preparação da imagem</span>
-    <span class="c1"># Rescaling pixel values (between 1 and 255) to a range between 0 and 1</span>
     <span class="n">dataGenerator</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="n">rescale</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="mi">255</span><span class="p">)</span>
     <span class="n">directory</span> <span class="o">=</span> <span class="s1">&#39;../data/interim/&#39;</span>
-    <span class="c1"># Instantiating generator to feed images through the network</span>
     <span class="n">generator</span> <span class="o">=</span> <span class="n">dataGenerator</span><span class="o">.</span><span class="n">flow_from_directory</span><span class="p">(</span>
         <span class="n">directory</span><span class="p">,</span>
         <span class="n">target_size</span><span class="o">=</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span>
@@ -398,7 +406,6 @@ document.write(`
         <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span>
-
     <span class="n">frame</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">real</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">fake</span> <span class="o">=</span> <span class="p">[]</span>
@@ -412,50 +419,26 @@ document.write(`
     <span class="n">resultado_fake</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">resultado_real</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">frame</span><span class="p">,</span><span class="n">real</span><span class="p">,</span><span class="n">fake</span><span class="p">,</span><span class="n">resultado_real</span><span class="p">,</span><span class="n">resultado_fake</span><span class="p">)</span>
 
-
 <span class="c1"># Modelo de análise de Espectro:</span>
-
 <span class="k">def</span> <span class="nf">azimuthalAverage</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculate the azimuthally averaged radial profile.</span>
-
-<span class="sd">    image - The 2D image</span>
-<span class="sd">    center - The [x,y] pixel coordinates used as the center. The default is </span>
-<span class="sd">             None, which then uses the center of the image (including </span>
-<span class="sd">             fracitonal pixels).</span>
-<span class="sd">    </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Calculate the indices from the image</span>
     <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-
     <span class="k">if</span> <span class="ow">not</span> <span class="n">center</span><span class="p">:</span>
         <span class="n">center</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">())</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">-</span><span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">())</span><span class="o">/</span><span class="mf">2.0</span><span class="p">])</span>
-
     <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">-</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-
-    <span class="c1"># Get sorted radii</span>
     <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">flat</span><span class="p">)</span>
     <span class="n">r_sorted</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
     <span class="n">i_sorted</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
-
-    <span class="c1"># Get the integer part of the radii (bin size = 1)</span>
     <span class="n">r_int</span> <span class="o">=</span> <span class="n">r_sorted</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-
-    <span class="c1"># Find all pixels that fall within each radial bin.</span>
-    <span class="n">deltar</span> <span class="o">=</span> <span class="n">r_int</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">r_int</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Assumes all radii represented</span>
-    <span class="n">rind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">deltar</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>       <span class="c1"># location of changed radius</span>
-    <span class="n">nr</span> <span class="o">=</span> <span class="n">rind</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">rind</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>        <span class="c1"># number of radius bin</span>
-    
-    <span class="c1"># Cumulative sum to figure out sums for each radius bin</span>
+    <span class="n">deltar</span> <span class="o">=</span> <span class="n">r_int</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">r_int</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">rind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">deltar</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">nr</span> <span class="o">=</span> <span class="n">rind</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">rind</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">csim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">i_sorted</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
     <span class="n">tbin</span> <span class="o">=</span> <span class="n">csim</span><span class="p">[</span><span class="n">rind</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span> <span class="o">-</span> <span class="n">csim</span><span class="p">[</span><span class="n">rind</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
-
     <span class="n">radial_prof</span> <span class="o">=</span> <span class="n">tbin</span> <span class="o">/</span> <span class="n">nr</span>
-
     <span class="k">return</span> <span class="n">radial_prof</span>
 <span class="n">modelo_espec</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../src/models/model_espectro.pkl&#39;</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+
 <span class="k">def</span> <span class="nf">modelo_analise_de_espectro</span><span class="p">():</span>
-    <span class="c1"># Importação do Modelo:</span>
     <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-8</span>
     <span class="n">N</span> <span class="o">=</span> <span class="mi">300</span>
     <span class="n">number_iter</span> <span class="o">=</span> <span class="mi">10</span>
@@ -471,9 +454,8 @@ document.write(`
         <span class="n">fshift</span> <span class="o">+=</span> <span class="n">epsilon</span>
         <span class="n">magnitude_spectrum</span> <span class="o">=</span> <span class="mi">20</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fshift</span><span class="p">))</span>
         <span class="n">psd1D</span> <span class="o">=</span> <span class="n">azimuthalAverage</span><span class="p">(</span><span class="n">magnitude_spectrum</span><span class="p">)</span>
-        <span class="c1"># Calculate the azimuthally averaged 1D power spectrum</span>
-        <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">num</span><span class="o">=</span><span class="n">psd1D</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="c1"># coordinates of a</span>
-        <span class="n">xi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">num</span><span class="o">=</span><span class="n">N</span><span class="p">)</span> <span class="c1"># coordinates for interpolation</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">num</span><span class="o">=</span><span class="n">psd1D</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> 
+        <span class="n">xi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">num</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
         <span class="n">interpolated</span> <span class="o">=</span> <span class="n">griddata</span><span class="p">(</span><span class="n">points</span><span class="p">,</span><span class="n">psd1D</span><span class="p">,</span><span class="n">xi</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;cubic&#39;</span><span class="p">)</span>
         <span class="n">interpolated</span> <span class="o">/=</span> <span class="n">interpolated</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">psd1D_total</span><span class="p">[</span><span class="n">cont</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">interpolated</span>             
@@ -486,6 +468,7 @@ document.write(`
     <span class="n">resultado_fake</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">resultado_real</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">real</span><span class="p">,</span><span class="n">fake</span><span class="p">,</span><span class="n">resultado_real</span><span class="p">,</span><span class="n">resultado_fake</span><span class="p">)</span>
 
+<span class="c1"># função que combina os modelos e calcula o resultado ponderado</span>
 <span class="k">def</span> <span class="nf">roda_modelo</span><span class="p">():</span>
     <span class="n">modelo1</span> <span class="o">=</span> <span class="n">modelo_meso4</span><span class="p">()</span>
     <span class="n">frame</span> <span class="o">=</span> <span class="n">modelo1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -525,13 +508,8 @@ document.write(`
 <span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;celebdf&#39;</span>
 <span class="n">dataframe_faces</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/processed/dataset_&#39;</span><span class="o">+</span><span class="n">dataset</span><span class="o">+</span><span class="s1">&#39;/metadados_faces.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
 <span class="n">dataframe_faces_teste</span> <span class="o">=</span> <span class="n">dataframe_faces</span><span class="p">[</span><span class="n">dataframe_faces</span><span class="p">[</span><span class="s1">&#39;particao&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;teste&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">teste_ensemble_label</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># Predição</span>
+<span class="n">teste_ensemble_label</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">teste_ensemble_proba</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;face&#39;</span><span class="p">]:</span>
     <span class="n">path_interim</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;processed/dataset_celebdf/&#39;</span><span class="p">,</span><span class="s1">&#39;interim/faces/&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;real_face/&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;fake_face/&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -540,132 +518,21 @@ document.write(`
     <span class="n">teste_ensemble_label</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pred</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">())</span>
     <span class="n">teste_ensemble_proba</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pred</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">path_interim</span><span class="p">)</span> 
-    
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">teste_ensemble_label</span>
+<span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">teste_ensemble_label</span>
 <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">teste_ensemble_proba</span>
+<span class="n">dataframe_faces_teste</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataframe_faces_teste</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>face</th>
-      <th>label</th>
-      <th>descricao</th>
-      <th>video</th>
-      <th>particao</th>
-      <th>test_pred_label</th>
-      <th>test_pred</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>../data/processed/dataset_celebdf/real_face/00...</td>
-      <td>1</td>
-      <td>REAL</td>
-      <td>00009.mp4</td>
-      <td>teste</td>
-      <td>0.0</td>
-      <td>0.3240</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>../data/processed/dataset_celebdf/real_face/00...</td>
-      <td>1</td>
-      <td>REAL</td>
-      <td>00009.mp4</td>
-      <td>teste</td>
-      <td>0.0</td>
-      <td>0.2290</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>../data/processed/dataset_celebdf/real_face/00...</td>
-      <td>1</td>
-      <td>REAL</td>
-      <td>00009.mp4</td>
-      <td>teste</td>
-      <td>0.0</td>
-      <td>0.0894</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>../data/processed/dataset_celebdf/real_face/00...</td>
-      <td>1</td>
-      <td>REAL</td>
-      <td>00009.mp4</td>
-      <td>teste</td>
-      <td>0.0</td>
-      <td>0.2334</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>../data/processed/dataset_celebdf/real_face/00...</td>
-      <td>1</td>
-      <td>REAL</td>
-      <td>00009.mp4</td>
-      <td>teste</td>
-      <td>0.0</td>
-      <td>0.3632</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">roc_auc_score</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">previsoes</span> <span class="o">=</span> <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred_label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># captura de resultados:</span>
+<span class="n">previsoes</span> <span class="o">=</span> <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred_label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">prob_previsao</span> <span class="o">=</span> <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred&#39;</span><span class="p">]</span>
 <span class="n">processamento</span> <span class="o">=</span> <span class="s1">&#39;Ensemble_&#39;</span><span class="o">+</span><span class="n">dataset</span>
 <span class="k">with</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">start_run</span><span class="p">(</span><span class="n">run_name</span><span class="o">=</span><span class="n">processamento</span><span class="p">):</span>
-    <span class="c1">#lr = LinearRegression()</span>
-    <span class="c1">#lr.fit(X_train, y_train)</span>
-    <span class="c1">#mlflow.sklearn.log_model(meso,&#39;MesoNet4&#39;)</span>
-    <span class="c1">#signature = infer_signature(X[0][0], meso.predict(X)[0][0])</span>
-    <span class="c1">#mlflow.tensorflow.log_model(meso, &quot;MesoNet4&quot;)</span>
-    <span class="c1">#lr_predicted = lr.predict(X_test)</span>
-    
     <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">previsoes</span><span class="p">,</span> <span class="n">output_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">acuracia</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">previsoes</span><span class="p">)</span>
     <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">acuracia</span><span class="p">)</span>
@@ -695,6 +562,7 @@ document.write(`
 <span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;faceforensics&#39;</span>
 <span class="n">dataframe_faces</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/processed/dataset_&#39;</span><span class="o">+</span><span class="n">dataset</span><span class="o">+</span><span class="s1">&#39;/metadados_faces.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
 <span class="n">dataframe_faces_teste</span> <span class="o">=</span> <span class="n">dataframe_faces</span><span class="p">[</span><span class="n">dataframe_faces</span><span class="p">[</span><span class="s1">&#39;particao&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;teste&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Predição</span>
 <span class="n">teste_ensemble_label</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">teste_ensemble_proba</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;face&#39;</span><span class="p">]:</span>
@@ -710,20 +578,14 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">teste_ensemble_label</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Captura de resultados</span>
+<span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">teste_ensemble_label</span>
 <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">teste_ensemble_proba</span>
 <span class="n">previsoes</span> <span class="o">=</span> <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred_label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">prob_previsao</span> <span class="o">=</span> <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred&#39;</span><span class="p">]</span>
 <span class="n">processamento</span> <span class="o">=</span> <span class="s1">&#39;Ensemble_&#39;</span><span class="o">+</span><span class="n">dataset</span>
 <span class="k">with</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">start_run</span><span class="p">(</span><span class="n">run_name</span><span class="o">=</span><span class="n">processamento</span><span class="p">):</span>
-    <span class="c1">#lr = LinearRegression()</span>
-    <span class="c1">#lr.fit(X_train, y_train)</span>
-    <span class="c1">#mlflow.sklearn.log_model(meso,&#39;MesoNet4&#39;)</span>
-    <span class="c1">#signature = infer_signature(X[0][0], meso.predict(X)[0][0])</span>
-    <span class="c1">#mlflow.tensorflow.log_model(meso, &quot;MesoNet4&quot;)</span>
-    <span class="c1">#lr_predicted = lr.predict(X_test)</span>
-    
     <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">previsoes</span><span class="p">,</span> <span class="n">output_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">acuracia</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">previsoes</span><span class="p">)</span>
     <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">acuracia</span><span class="p">)</span>
@@ -753,6 +615,7 @@ document.write(`
 <span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;dfdc&#39;</span>
 <span class="n">dataframe_faces</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/processed/dataset_&#39;</span><span class="o">+</span><span class="n">dataset</span><span class="o">+</span><span class="s1">&#39;/metadados_faces.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
 <span class="n">dataframe_faces_teste</span> <span class="o">=</span> <span class="n">dataframe_faces</span><span class="p">[</span><span class="n">dataframe_faces</span><span class="p">[</span><span class="s1">&#39;particao&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;teste&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Predição</span>
 <span class="n">teste_ensemble_label</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">teste_ensemble_proba</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;face&#39;</span><span class="p">]:</span>
@@ -768,20 +631,14 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">teste_ensemble_label</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Captura de resultados</span>
+<span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">teste_ensemble_label</span>
 <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">teste_ensemble_proba</span>
 <span class="n">previsoes</span> <span class="o">=</span> <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred_label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">prob_previsao</span> <span class="o">=</span> <span class="n">dataframe_faces_teste</span><span class="p">[</span><span class="s1">&#39;test_pred&#39;</span><span class="p">]</span>
 <span class="n">processamento</span> <span class="o">=</span> <span class="s1">&#39;Ensemble_&#39;</span><span class="o">+</span><span class="n">dataset</span>
-<span class="k">with</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">start_run</span><span class="p">(</span><span class="n">run_name</span><span class="o">=</span><span class="n">processamento</span><span class="p">):</span>
-    <span class="c1">#lr = LinearRegression()</span>
-    <span class="c1">#lr.fit(X_train, y_train)</span>
-    <span class="c1">#mlflow.sklearn.log_model(meso,&#39;MesoNet4&#39;)</span>
-    <span class="c1">#signature = infer_signature(X[0][0], meso.predict(X)[0][0])</span>
-    <span class="c1">#mlflow.tensorflow.log_model(meso, &quot;MesoNet4&quot;)</span>
-    <span class="c1">#lr_predicted = lr.predict(X_test)</span>
-    
+<span class="k">with</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">start_run</span><span class="p">(</span><span class="n">run_name</span><span class="o">=</span><span class="n">processamento</span><span class="p">):</span> 
     <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">previsoes</span><span class="p">,</span> <span class="n">output_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">acuracia</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">previsoes</span><span class="p">)</span>
     <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">acuracia</span><span class="p">)</span>

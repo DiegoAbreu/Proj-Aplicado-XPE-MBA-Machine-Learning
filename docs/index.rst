@@ -9,6 +9,7 @@ Projeto Aplicado XPE - MBA em Machine Learning
    :maxdepth: 1
    :caption: Documentação:
 
+   notebooks/0_INTRODUCAO
    notebooks/1_EDA
    notebooks/2_PRE_PROCESSAMENTO
    notebooks/3_MESO

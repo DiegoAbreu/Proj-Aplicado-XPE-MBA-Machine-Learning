@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>2. Análise Exploratória e Pré-processamento &#8212; Projeto Aplicado XPE - MBA em Machine Learning</title>
+    <title>2. Pré-processamento &#8212; Projeto Aplicado XPE - MBA em Machine Learning</title>
   
   
   
@@ -127,8 +127,9 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentação:</span></p>
 <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0_INTRODUCAO.html">Introdução ao Projeto</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1_EDA.html">1. Análise Exploratória</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Análise Exploratória e Pré-processamento</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Pré-processamento</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3_MESO.html">3. Modelo MesoNet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4_DECOMPOSICAO_DE_ESPECTRO.html">4. Decomposição de Espectro</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5_EFFICIENTNET-V2.html">5. EfficientNET</a></li>
@@ -270,7 +271,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>2. Análise Exploratória e Pré-processamento</h1>
+    <h1>2. Pré-processamento</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -280,15 +281,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">Datasets</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#captura-de-frames">Captura de frames</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteccao-de-faces">Detecção de faces</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regiao-de-interesse">Região de interesse</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcao-para-aplicar-a-todos-os-videos">Função para aplicar a todos os videos:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#divisao-treino-e-teste">Divisão Treino e Teste</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-de-misto">Dataset de Misto:</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#captura-de-frames">Captura de frames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deteccao-de-faces">Detecção de faces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regiao-de-interesse">Região de interesse</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcao-para-aplicar-a-todos-os-videos">Função para aplicar a todos os videos:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#divisao-treino-e-teste">Divisão Treino e Teste</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-de-misto">Dataset de Misto:</a></li>
 </ul>
             </nav>
         </div>
@@ -300,49 +298,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="analise-exploratoria-e-pre-processamento">
-<h1>2. Análise Exploratória e Pré-processamento<a class="headerlink" href="#analise-exploratoria-e-pre-processamento" title="Permalink to this heading">#</a></h1>
-<section id="datasets">
-<h2>Datasets<a class="headerlink" href="#datasets" title="Permalink to this heading">#</a></h2>
-<p>Os datasets serão armazenados no diretório data conforme a estrutura a seguir:</p>
-<p>…</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>├── data                            &lt;- Diretório de dados.
-│   ├── external                    &lt;- Diretório de dados externos(temporário).
-│   │   └── input_video             &lt;- Diretório para armazenar o vídeo recebido via 
-│   │                                  upload para classificação.
-│   │   
-│   ├── interim                     &lt;- Diretório de dados em processamento (temporário).
-│   │   └── input_face              &lt;- Diretório para armazenar os frames processados 
-│   │                                  do vídeo recebido via upload para classificação.
-│   │
-│   ├── processed                   &lt;- Diretório de dados processados.
-│   │   ├── dataset_celebdf         &lt;- Diretório de faces do dataset celebdf
-│   │   │   └── real_face           &lt;- Diretório de faces reais
-│   │   │   └── fake_face           &lt;- Diretório de faces falsas
-│   │   │
-│   │   ├── dataset_faceforensics   &lt;- Diretório de faces do dataset faceforensics
-│   │   │   └── real_face           &lt;- Diretório de faces reais
-│   │   │   └── fake_face           &lt;- Diretório de faces falsas
-│   │   │
-│   │   └── dataset_dfdc            &lt;- Diretório de faces do dataset dfdc
-│   │       └── real_face           &lt;- Diretório de faces reais
-│   │       └── fake_face           &lt;- Diretório de faces falsas
-│   │   
-│   └── raw                         &lt;- Diretório de dados brutos.
-│       ├── dataset_celebdf         &lt;- Diretório de vídeos do dataset celebdf
-│       │   └── real_video          &lt;- Diretório de vídeos reais
-│       │   └── fake_video          &lt;- Diretório de vídeos falsos
-│       │
-│       ├── dataset_faceforensics   &lt;- Diretório de vídeos do dataset faceforensics
-│       │   └── real_video          &lt;- Diretório de vídeos reais
-│       │   └── fake_video          &lt;- Diretório de vídeos falsos
-│       │
-│       └── dataset_dfdc            &lt;- Diretório de vídeos do dataset dfdc
-│           └── real_video          &lt;- Diretório de vídeos reais
-│           └── fake_video          &lt;- Diretório de vídeos falsos
-</pre></div>
-</div>
-<p>…</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="pre-processamento">
+<h1>2. Pré-processamento<a class="headerlink" href="#pre-processamento" title="Permalink to this heading">#</a></h1>
+<p>As etapas de pré-processamento são:</p>
+<ul class="simple">
+<li><p>Captura de frames aleatórios dos vídeos. Serão capturados at’e 10 frames por vídeo.</p></li>
+<li><p>Identificação de faces nos frames.</p></li>
+<li><p>Recorte expandindo a região para pegar o entorno. Isso ajuda o modelo a entender as falhas que podem ter as regiões de borda. Após isso salvamos a faces em .JPG para alimentar os modelos.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bibliotecas</span>
@@ -360,7 +323,7 @@ document.write(`
 </div>
 </div>
 <section id="captura-de-frames">
-<h3>Captura de frames<a class="headerlink" href="#captura-de-frames" title="Permalink to this heading">#</a></h3>
+<h2>Captura de frames<a class="headerlink" href="#captura-de-frames" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Captura de Frames:</span>
@@ -400,7 +363,7 @@ document.write(`
 </div>
 </section>
 <section id="deteccao-de-faces">
-<h3>Detecção de faces<a class="headerlink" href="#deteccao-de-faces" title="Permalink to this heading">#</a></h3>
+<h2>Detecção de faces<a class="headerlink" href="#deteccao-de-faces" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">face_cascade</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CascadeClassifier</span><span class="p">(</span><span class="s1">&#39;../src/features/haarcascades/haarcascade_frontalface_default.xml&#39;</span><span class="p">)</span>
@@ -423,7 +386,7 @@ document.write(`
 </div>
 </section>
 <section id="regiao-de-interesse">
-<h3>Região de interesse<a class="headerlink" href="#regiao-de-interesse" title="Permalink to this heading">#</a></h3>
+<h2>Região de interesse<a class="headerlink" href="#regiao-de-interesse" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#ROI</span>
@@ -447,7 +410,7 @@ document.write(`
 </div>
 </section>
 <section id="funcao-para-aplicar-a-todos-os-videos">
-<h3>Função para aplicar a todos os videos:<a class="headerlink" href="#funcao-para-aplicar-a-todos-os-videos" title="Permalink to this heading">#</a></h3>
+<h2>Função para aplicar a todos os videos:<a class="headerlink" href="#funcao-para-aplicar-a-todos-os-videos" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save Faces:</span>
@@ -532,7 +495,7 @@ document.write(`
 </div>
 </section>
 <section id="divisao-treino-e-teste">
-<h3>Divisão Treino e Teste<a class="headerlink" href="#divisao-treino-e-teste" title="Permalink to this heading">#</a></h3>
+<h2>Divisão Treino e Teste<a class="headerlink" href="#divisao-treino-e-teste" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># categorizacao dos videos em treino e teste</span>
@@ -1054,7 +1017,7 @@ Name: particao, dtype: int64
 </section>
 <hr class="docutils" />
 <section id="dataset-de-misto">
-<h3>Dataset de Misto:<a class="headerlink" href="#dataset-de-misto" title="Permalink to this heading">#</a></h3>
+<h2>Dataset de Misto:<a class="headerlink" href="#dataset-de-misto" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Leitura dos arquivos de metadados de cada dataset</span>
@@ -1295,7 +1258,6 @@ Name: descricao, dtype: int64
 </div>
 </section>
 </section>
-</section>
 
 
                 </article>
@@ -1345,15 +1307,12 @@ Name: descricao, dtype: int64
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">Datasets</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#captura-de-frames">Captura de frames</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteccao-de-faces">Detecção de faces</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regiao-de-interesse">Região de interesse</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcao-para-aplicar-a-todos-os-videos">Função para aplicar a todos os videos:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#divisao-treino-e-teste">Divisão Treino e Teste</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-de-misto">Dataset de Misto:</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#captura-de-frames">Captura de frames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deteccao-de-faces">Detecção de faces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regiao-de-interesse">Região de interesse</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcao-para-aplicar-a-todos-os-videos">Função para aplicar a todos os videos:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#divisao-treino-e-teste">Divisão Treino e Teste</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-de-misto">Dataset de Misto:</a></li>
 </ul>
   </nav></div>
 

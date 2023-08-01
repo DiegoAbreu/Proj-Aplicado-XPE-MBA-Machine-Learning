@@ -3,14 +3,22 @@
 ## Objetivo:
 O projeto tem por objetivo gerar uma solução de Machine Learning capaz de ajudar plataformas e usuários a classificar conteúdos em vídeos em relação a presença ou não de “deepfakes”. De forma a acelerar o processo de sinalização e remoção de conteúdo potencialmente falso.
 
-Para se atingir o nosso objetivo final, o desenvolvimento seguirá as seguintes etapas: 
-- Testar 3 diferentes modelos para detecção de deepfakes;
-- Utilizar uma combinação de 3 diferentes datasets para treino e teste;
+Para se atingir o nosso objetivo final, o desenvolvimento seguiu as seguintes etapas: 
+- Teste de 3 diferentes modelos para detecção de deepfakes;
 - Refinar modelos se aplicável (ajuste de hiperparametros, treino com mais dados, ajuste de camadas e etc…)
-- Criar Ensemble para combinar modelos e obter melhores resultados.
+- Criação de um modelo combinado (ensemble) visando obter melhores resultados.
 - Gerar um benchmarking dos modelos;
 - O melhor modelo será implantado na nossa solução.
 
+## Links do projeto:
+- [Relatório de desenvolvimento](https://docs.google.com/document/d/121q5iUjxGZYf_wPszxAFFLOF-IOd-j_U/edit?usp=sharing&ouid=111703326062511304035&rtpof=true&sd=true)
+- [Canvas do Projeto utilizando Design Thinking](https://docs.google.com/presentation/d/1MXR_RvKd_a8XSEN5KG-OVLfeyai6UuFT/edit?usp=sharing&ouid=111703326062511304035&rtpof=true&sd=true)
+- [Documentação interativa](https://diegoabreu.github.io/Proj-Aplicado-XPE-MBA-Machine-Learning)
+- [Aplicação Web (solução)](https://proj-xpe-mba-machine-learning-diego-abreu.streamlit.app)
+
+***
+## Arquitetura:
+![image](./references/images/Arquitetura.png)
 
 *** 
 ## Metodologias
@@ -50,7 +58,7 @@ Referências:
 
 Organização do projeto:
 
-<mark>[Detalhar alterações durante o desenvolvimento]</mark>
+
 
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
@@ -61,7 +69,7 @@ Organização do projeto:
     │   │                                  upload para classificação.
     │   │   
     │   ├── interim                     <- Diretório de dados em processamento (temporário).
-    │   │   └── input_face              <- Diretório para armazenar os frames processados 
+    │   │   └── faces              <- Diretório para armazenar os frames processados 
     │   │                                  do vídeo recebido via upload para classificação.
     │   │
     │   ├── processed                   <- Diretório de dados processados.
@@ -127,5 +135,14 @@ Organização do projeto:
     └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
 
 ***
-## Arquitetura:
-![image](./references/images/Arquitetura.png)
+## A solução
+
+Cmbinamos os 2 melhores modelos dos nossos teste. Dessa forma o nosso “Ensemble” contará com o modelo Mesonet e o melhor modelo de decomposição de espectro. 
+A combinação foi feita através de uma função que roda os dois modelos, captura as predições e calcula aplicando como peso a média das acurácias que obtivemos nos testes anteriores.
+Esse cálculo é aplicado para cada predição (face extraída do vídeo), e o resultado final é a média.
+
+O modelo pode ser utilizado através de uma [aplicação Web](https://proj-xpe-mba-machine-learning-diego-abreu.streamlit.app). Nela o usuário pode fazer um upload de um vídeo, A aplicação irá extrair frames com a face, realizar e exibir a análise individual dos frames e também uma análise consolidada. 
+
+Além disso, também é exibido o percentual da probabilidade de ser real e de ser um deepfake.
+![image](./references/images/gif_ok.gif) 
+![image](./references/images/gif_fake.gif)
